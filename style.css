@@ -1,0 +1,2406 @@
+/* ============================================================================
+   DESIGN SYSTEM & COLOR VARIABLES
+   ============================================================================
+   Central color palette used throughout the site
+   - bg: Creamy white background
+   - text: Deep burgundy for main text
+   - secondary: Muted brown for secondary text
+   - accent: Vibrant orange for highlights
+   - blue/b-yellow: Sage green for accents
+   ============================================================================ */
+:root {
+    --bg: #FCFBF9;        /* Creamy White - Main background */
+    --text: #5C1D33;      /* Deep Burgundy - Primary text color */
+    --secondary: #5a4b3c; /* Muted Brown - Secondary text color */
+    --accent: #F28D35;    /* Vibrant Orange - Interactive highlights */
+    --blue: #B8CF8E;      /* Sage Green - Accent borders and highlights */
+    --b-yellow: #B8CF8E;  /* Sage Green - Alternative accent color */
+}
+
+/* ============================================================================
+   BASE STYLES & GLOBAL RESETS
+   ============================================================================
+   Foundational styles applied to all elements
+   ============================================================================ */
+
+/**
+ * Universal element reset
+ * Remove default margins, padding, and enable box-sizing
+ * Hide default cursor (custom cursor implemented via JavaScript)
+ */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    cursor: none; 
+}
+
+/**
+ * Body styles
+ * Set background, text color, font family
+ * Hide horizontal scrollbar overflow
+ */
+body { 
+    background: var(--bg); 
+    color: var(--text); 
+    font-family: 'Inter', sans-serif; 
+    overflow-x: hidden; 
+}
+
+/* Hide default cursor entirely */
+* { cursor: none !important; }
+
+/* ============================================================================
+   CUSTOM CURSOR SYSTEM STYLING
+   ============================================================================
+   Two-layer custom cursor design
+   - Inner dot: Fast-moving center element
+   - Outer ring: Elastic follower element
+   - Hover state: Larger ring with accent color
+   ============================================================================ */
+
+/**
+ * Inner cursor dot
+ * Small, fast-moving dot that tracks exact cursor position
+ */
+#cursor {
+    width: 6px;
+    height: 6px;
+    background: var(--text);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10001;
+    mix-blend-mode: difference;
+}
+
+/**
+ * Outer cursor ring
+ * Larger ring that elastically follows the inner cursor
+ * Creates lag effect for smooth, bouncy appearance
+ */
+#cursor-follower {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--text);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+}
+
+/**
+ * Cursor hover state
+ * Expands ring, changes color to accent, makes semi-transparent
+ */
+body.cursor-hover #cursor-follower {
+    width: 45px;
+    height: 45px;
+    background: rgba(242, 141, 53, 0.1); /* Subtle orange tint */
+    border-color: var(--accent);
+    border-width: 2px;
+}
+
+/**
+ * Hide center dot during hover for cleaner look
+ */
+body.cursor-hover #cursor {
+    opacity: 0;
+}
+
+
+/* ============================================================================
+   LOGO COMPONENT STYLES
+   ============================================================================
+   Styling for the "D/*" logo in the navigation
+   - Letter: Primary logo character
+   - Slash: Decorative slash element
+   - Mark: Asterisk accent mark
+   ============================================================================ */
+
+/**
+ * Logo container
+ * Flexbox layout for logo components with cursor pointer
+ * User-select disabled to prevent text selection on click
+ */
+.logo-container {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 5px 10px;
+    overflow: visible;
+}
+
+/**
+ * Main logo letter (D)
+ * Large, bold, deep burgundy color
+ */
+.logo-letter {
+    font-size: 1.8rem;
+    color: var(--text);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/**
+ * Logo slash (/)
+ * Separator between letter and mark
+ * Negative margin for tight kerning
+ */
+.logo-slash {
+    font-size: 1.8rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-left: -3px;
+    display: inline-block;
+    will-change: transform;
+}
+
+/**
+ * Logo accent mark (*)
+ * Small asterisk in vibrant orange
+ * Positioned absolutely in bottom-right corner
+ */
+.logo-mark {
+    font-size: 1.1rem;
+    color: var(--accent);
+    position: absolute;
+    bottom: 5px;
+    right: 6px;
+    font-weight: 300;
+}
+
+
+/* ============================================================================
+   NAVIGATION STYLING
+   ============================================================================
+   Fixed navbar with centered navigation links
+   Includes hover effects and active state styling
+   ============================================================================ */
+
+/**
+ * Main navigation bar
+ * Fixed positioning at top, flexbox layout
+ * Semi-transparent background with backdrop blur for glassmorphism effect
+ */
+nav {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 20px 60px; 
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000;
+    background: rgba(252, 251, 249, 0.8);
+    backdrop-filter: blur(12px);
+    transition: transform 0.4s ease-in-out; 
+}
+
+/**
+ * Navigation links container
+ * Centered flex layout with sage green background
+ * Rounded pill-shaped container with subtle border
+ */
+.nav-links.desktop-only {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(184, 207, 142, 0.3);
+    padding: 6px;
+    border-radius: 100px;
+    border: 1px solid rgba(242, 141, 53, 0.1);
+    box-shadow: 0 4px 20px rgba(242, 141, 53, 0.05);
+}
+
+/**
+ * Individual navigation links
+ * Smooth transitions for hover and active states
+ */
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 100px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    position: relative;
+}
+
+/**
+ * Navigation link hover state
+ * Subtle background color change
+ */
+.nav-links a:hover {
+    color: var(--text);
+    background: rgba(242, 141, 53, 0.08);
+}
+
+/**
+ * Active navigation link
+ * White text on orange background
+ * Enhanced shadow for prominence
+ */
+.nav-links a.active {
+    color: white;
+    background: var(--accent);
+    box-shadow: 0 2px 10px rgba(242, 141, 53, 0.2);
+    font-weight: 600;
+}
+
+/**
+ * Placeholder for right side of navbar
+ * Ensures menu toggle has space
+ */
+.nav-right-placeholder {
+    width: 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/**
+ * Menu toggle (hamburger button)
+ * Hidden on desktop, visible on mobile
+ */
+.menu-toggle {
+    display: none;
+}
+
+/**
+ * Nav overlay for mobile menu
+ * Full-screen menu with slide-in animation
+ */
+.nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    visibility: hidden;
+    flex-direction: column;
+}
+
+
+/* ============================================================================
+   RESPONSIVE NAVIGATION - MOBILE STYLES
+   ============================================================================
+   Mobile-specific navigation and menu toggle styles
+   Hamburger menu, menu items, and close button
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+    /**
+     * Show hamburger menu toggle on mobile/tablet
+     */
+    .menu-toggle { 
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 2001;
+    }
+
+    /**
+     * Hide desktop navigation links on small screens
+     */
+    .desktop-only { 
+        display: none !important; 
+    }
+
+    /**
+     * Mobile menu overlay styles
+     */
+    .nav-overlay {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        visibility: hidden;
+        flex-direction: column;
+    }
+
+    /**
+     * Close button styling for mobile menu
+     * Positioned at top-right corner
+     */
+    .menu-close-btn {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: none;
+        border: none;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text);
+        transition: all 0.3s ease;
+        padding: 0;
+        z-index: 2001;
+        opacity: 0;
+        scale: 0.8;
+        pointer-events: none;
+    }
+
+    /**
+     * Close button hover effect
+     */
+    .menu-close-btn:hover {
+        transform: rotate(90deg);
+        color: var(--accent);
+    }
+
+    /**
+     * Close button SVG sizing
+     */
+    .menu-close-btn svg {
+        width: 28px;
+        height: 28px;
+        stroke-width: 2.5;
+    }
+
+    /**
+     * Enable close button when menu is active
+     */
+    .nav-overlay.active .menu-close-btn {
+        pointer-events: auto;
+    }
+
+    /**
+     * Hamburger menu bars
+     */
+    .bar { 
+        width: 28px; 
+        height: 3px; 
+        background: var(--text); 
+        border-radius: 10px; 
+        transition: 0.4s; 
+        display: block; 
+    }
+    
+    /**
+     * Mobile navigation links layout
+     */
+    .mobile-nav-links { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 30px; 
+        text-align: center; 
+    }
+    
+    /**
+     * Individual mobile nav item styling
+     */
+    .m-nav-item { 
+        font-size: 3rem; 
+        font-family: 'Fredoka', sans-serif; 
+        text-decoration: none; 
+        color: var(--text); 
+        opacity: 0; 
+        transform: translateY(20px); 
+        cursor: pointer;
+    }
+
+    /**
+     * Hamburger animation - X pattern on menu open
+     */
+    .menu-toggle.active .bar-1 { transform: translateY(9px) rotate(45deg); }
+    .menu-toggle.active .bar-2 { opacity: 0; }
+    .menu-toggle.active .bar-3 { transform: translateY(-9px) rotate(-45deg); }
+}
+
+
+/* ============================================================================
+   HERO SECTION STYLING
+   ============================================================================
+   Full-height hero section with two-column grid layout
+   - Left: Text content (speech bubble, name, description, buttons)
+   - Right: Profile image with 3D perspective
+   ============================================================================ */
+
+/**
+ * Hero section container
+ * Two-column grid with 3D perspective effect
+ * Full viewport height with top padding for fixed navbar
+ */
+.hero { 
+    display: grid; 
+    grid-template-columns: 1.2fr 1fr; 
+    align-items: center; 
+    gap: 80px; 
+    height: 100vh;
+    padding-top: 80px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+/**
+ * Hero content (left side text)
+ * Preserves 3D transforms for depth effect
+ */
+.hero-content {
+    perspective: 1000px;
+    will-change: transform, opacity;
+    transform-style: preserve-3d;
+}
+
+/**
+ * Speech bubble above name
+ * Sage green background with tail pointing down
+ */
+.speech-bubble {
+    background: var(--b-yellow);
+    border-radius: 50px;
+    padding: 15px 25px;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 135px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    opacity: 0;
+    filter: blur(15px);
+    transform: scale(0.6) translateY(20px);
+    will-change: transform, opacity, filter;
+}
+
+/**
+ * Speech bubble tail (arrow)
+ * Positioned below speech bubble
+ */
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 30px;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: var(--b-yellow) transparent;
+}
+
+/**
+ * Playful name display
+ * Large, animated name in two rows
+ */
+.playful-name { 
+    font-family: 'Fredoka', sans-serif; 
+    font-size: clamp(4rem, 8vw, 7rem); 
+    line-height: 0.9; 
+    margin-bottom: 20px; 
+}
+
+/**
+ * Each row of name characters
+ * Flex layout for spacing between chars
+ */
+.name-row { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+}
+
+/**
+ * First row slight left offset
+ */
+.name-row:first-child { margin-left: 85px; }
+
+/**
+ * Individual character styling
+ * Initially hidden with blur, will animate in
+ */
+.char { 
+    display: inline-block; 
+    opacity: 0;
+    filter: blur(15px);
+    transform: scale(0.6) translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    will-change: transform, opacity, filter;
+}
+
+/**
+ * Character colors (cycling pattern)
+ */
+.c1 { color: #F28D35; } 
+.c2 { color: #5C1D33; } 
+.c3 { color: #B8CF8E; } 
+.c4 { color: #F28D35; } 
+.c5 { color: #5C1D33; }
+
+/**
+ * Hero description paragraph
+ * Subtle color, smaller font, limited width
+ */
+.hero-content p {
+    opacity: 0;
+    filter: blur(15px);
+    transform: scale(0.6) translateY(20px);
+    will-change: transform, opacity, filter;
+}
+
+/**
+ * Hero action buttons container
+ * Flex row with gap and left offset
+ */
+.hero-btns {
+    display: flex;
+    flex-direction: row; 
+    gap: 15px;
+    margin-top: 30px;
+    margin-left: 85px;
+    flex-wrap: wrap; 
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.8) translateY(20px);
+    will-change: transform, opacity, filter;
+}
+
+/**
+ * Button base styles
+ * Padding, rounded corners, smooth transitions
+ */
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap; 
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+/**
+ * Primary button (Download CV)
+ * Orange background, white text
+ */
+.download-btn { 
+    background: var(--accent); 
+    color: white; 
+}
+
+/**
+ * Secondary button (Contact)
+ * Transparent background, orange border
+ */
+.contact-btn { 
+    background: transparent; 
+    color: var(--text); 
+    border: 2px solid var(--accent); 
+}
+
+/**
+ * Hero image container (right side)
+ * Relative positioning for 3D perspective
+ */
+.hero-img-container { position: relative; }
+
+/**
+ * Profile image circle
+ * Circular border, shadow effect
+ */
+.profile-circle { 
+    width: 450px; 
+    height: 450px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 15px solid var(--b-yellow);
+    box-shadow: 0 50px 80px rgba(92, 29, 51, 0.15);
+}
+
+
+/* ============================================================================
+   WORK SECTION STYLING
+   ============================================================================
+   Grid-based portfolio display with project cards
+   Rounded top corners and shadow effects for elevated appearance
+   ============================================================================ */
+
+/**
+ * Work section container
+ * Positioned above hero with negative margin
+ * Rounded top corners, shadow effect
+ */
+.work-section-container { 
+    position: relative;
+    z-index: 20;
+    background: var(--bg);
+    margin-top: -20vh;
+    padding: 80px 10%;
+    box-shadow: 0 -40px 100px rgba(92, 29, 51, 0.05);
+    border-radius: 40px 40px 0 0;
+    will-change: transform, box-shadow;
+    transition: box-shadow 0.5s ease;
+}
+
+/**
+ * Work grid layout
+ * Two columns side by side
+ * Large gap between items
+ */
+.work-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 100px; 
+    margin-bottom: 70px;
+    opacity: 0;
+    transform: scale(0.9) translateY(40px);
+    will-change: transform, opacity;
+}
+
+/**
+ * Project card hover effect
+ * Scales image on hover for prominent effect
+ */
+.project-card:hover img { 
+    transform: scale(1.05); 
+}
+
+/**
+ * Project image container
+ * Square aspect ratio with rounded corners
+ */
+.project-img-box { 
+    width: 100%; 
+    aspect-ratio: 1 / 1; 
+    overflow: hidden; 
+    border-radius: 12px; 
+    background: var(--b-yellow);
+}
+
+/**
+ * Project image styling
+ * Smooth scale transition on hover
+ */
+.project-img-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+/**
+ * Project title
+ * Responsive font sizing
+ * Semi-bold weight
+ */
+.project-info h3 { 
+    font-size: clamp(0.9rem, 3vw, 1.4rem); 
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/**
+ * Project description
+ * Muted secondary color
+ * Line height for readability
+ */
+.project-info p { 
+    font-size: clamp(0.7rem, 2vw, 0.95rem); 
+    color: var(--secondary);
+    line-height: 1.3;
+}
+
+
+/* ============================================================================
+   VIEW MANAGEMENT & PAGE LAYOUT
+   ============================================================================
+   Manages visibility of different page sections
+   - View sections: Hidden by default, shown when active
+   - Page content: Standard padding and spacing
+   - Section titles: Large, elegant typography
+   ============================================================================ */
+
+/**
+ * Individual view sections (home, photos, about, contact)
+ * Hidden by default, full-height minimum
+ */
+.view-section { 
+    display: none; 
+    min-height: 100vh; 
+    padding: 0 10% 100px; 
+}
+
+/**
+ * Active view is visible
+ */
+.view-section.active { 
+    display: block; 
+}
+
+/**
+ * Standard page content padding
+ * Accounts for fixed navbar height
+ */
+.page-content { 
+    padding-top: 160px; 
+}
+
+/**
+ * Section titles
+ * Large, elegant serif font
+ * Consistent bottom spacing
+ */
+.section-title { 
+    font-family: 'Playfair Display'; 
+    font-size: 3.5rem; 
+    margin-bottom: 40px; 
+}
+
+/* ============================================================================
+   PHOTO GALLERY STYLING
+   ============================================================================
+   CSS column-based masonry layout for responsive gallery
+   Images arranged in vertical columns that adjust to screen size
+   ============================================================================ */
+
+
+/**
+ * Photo gallery section
+ * White background for contrast
+ */
+#view-photos {
+    background: var(--bg);
+}
+
+/**
+ * Gallery section title
+ * Centered alignment
+ */
+#view-photos .section-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/**
+ * Gallery intro text
+ * Centered, muted color, limited width
+ */
+.photo-gallery-intro {
+    text-align: center;
+    color: var(--secondary);
+    font-size: 1.05rem;
+    margin-bottom: 60px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/**
+ * Masonry grid layout using CSS columns
+ * 4 columns on desktop, responsive to screen size
+ * Gaps between images for spacing
+ */
+.photo-gallery-grid {
+    column-count: 4;
+    column-gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/**
+ * Individual photo item
+ * Responsive sizing with column layout
+ * Rounded corners, subtle shadow
+ */
+.photo-item {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+    background: white;
+    margin-bottom: 20px;
+    break-inside: avoid;
+    cursor: pointer;
+    display: block;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 12px rgba(92, 29, 51, 0.06);
+}
+
+/**
+ * Photo image
+ * Full width, maintained aspect ratio
+ */
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/**
+ * Photo item hover state
+ * Lift up with enhanced shadow and image zoom
+ */
+.photo-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(92, 29, 51, 0.15);
+}
+
+/**
+ * Photo image hover zoom
+ */
+.photo-item:hover img {
+    transform: scale(1.04);
+}
+
+/**
+ * Placeholder classes for different aspect ratios
+ * Can be used to size items differently if needed in the future
+ */
+
+
+/* ============================================================================
+   PROJECT PAGE STYLING
+   ============================================================================
+   Detailed project showcase page layout
+   - Hero section with project info and image
+   - Body section with description, features, gallery
+   - Responsive grid adjustments
+   ============================================================================ */
+
+/**
+ * Project page container
+ * Top padding to account for navbar
+ */
+.project-page { 
+    padding-top: 120px; 
+    background: var(--bg); 
+}
+
+/**
+ * Project container with max-width
+ * Centered with padding
+ */
+.project-container { 
+    max-width: 1200px; 
+    margin: 40px auto; 
+    padding: 40px; 
+}
+
+/**
+ * Project hero grid
+ * Two columns: text on left, image on right
+ * Aligned to start for top alignment
+ */
+.project-hero-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 520px; 
+    gap: 40px; 
+    align-items: start; 
+}
+
+/**
+ * Project title
+ * Large, elegant serif typography
+ */
+.hero-left h1{ 
+    font-family: 'Playfair Display', serif; 
+    font-size: clamp(2rem,4.5vw,3.4rem); 
+    margin-bottom: 8px; 
+}
+
+/**
+ * Muted text color
+ */
+.muted{ 
+    color:var(--secondary); 
+    margin-bottom:18px 
+}
+
+/**
+ * Project summary paragraph
+ */
+.project-summary p{ 
+    font-size:1.05rem; 
+    color:var(--secondary); 
+    line-height:1.6 
+}
+
+/**
+ * Meta information grid (Role, Timeline, Team)
+ */
+.project-meta-row{ 
+    display:flex; 
+    gap:24px; 
+    margin-top:18px 
+}
+
+/**
+ * Meta column paragraph styling
+ */
+.project-meta-row .meta-col p{ 
+    margin-top:6px; 
+    color:var(--secondary) 
+}
+
+/**
+ * Technology tags
+ */
+.project-tags{ 
+    margin-top:18px; 
+    display:flex; 
+    gap:10px; 
+    flex-wrap:wrap 
+}
+
+/**
+ * Individual tag styling
+ */
+.tag{ 
+    background:rgba(242,141,53,0.08); 
+    color:var(--text); 
+    padding:8px 12px; 
+    border-radius:999px; 
+    font-weight:600; 
+    font-size:0.85rem 
+}
+
+/**
+ * Project CTA buttons
+ */
+.project-ctas{ 
+    margin-top:22px; 
+    display:flex; 
+    gap:12px 
+}
+
+/**
+ * Project image wrapper
+ */
+.project-image-wrap{ 
+    border-radius:14px; 
+    overflow:hidden; 
+    box-shadow:0 30px 60px rgba(92,29,51,0.08); 
+}
+
+/**
+ * Project main image
+ */
+.project-image{ 
+    width:100%; 
+    height: auto; 
+    display:block 
+}
+
+/**
+ * Project body content
+ */
+.project-body{ 
+    margin-top:40px 
+}
+
+/**
+ * Body section headings
+ */
+.project-body h2{ 
+    font-family:'Playfair Display'; 
+    font-size:2rem; 
+    margin-bottom:14px 
+}
+
+/**
+ * Project description text
+ */
+.project-desc{ 
+    color:var(--secondary); 
+    line-height:1.7; 
+    margin-bottom:20px 
+}
+
+/**
+ * Features list
+ * Two-column grid layout
+ */
+.project-features{ 
+    display:grid; 
+    grid-template-columns: repeat(2,1fr); 
+    gap:10px 30px; 
+    margin-bottom:26px 
+}
+
+/**
+ * Project gallery grid
+ * Three columns
+ */
+.project-gallery{ 
+    display:grid; 
+    grid-template-columns: repeat(3,1fr); 
+    gap:12px 
+}
+
+/**
+ * Gallery thumbnail image
+ * Hover zoom effect
+ */
+.gallery-thumb{ 
+    width:100%; 
+    height:160px; 
+    object-fit:cover; 
+    border-radius:8px; 
+    transition:transform 0.45s cubic-bezier(0.16,1,0.3,1) 
+}
+
+/**
+ * Gallery thumbnail hover
+ */
+.gallery-thumb:hover{ 
+    transform:scale(1.05) 
+}
+
+/**
+ * Responsive project page
+ */
+@media (max-width: 900px){
+    .project-hero-grid{ grid-template-columns: 1fr; }
+    .hero-right{ order:-1 }
+    .project-gallery{ grid-template-columns: repeat(2,1fr) }
+}
+
+/**
+ * Photo item aspect ratio variants
+ */
+.photo-item.tall { grid-column: span 1; aspect-ratio: 2 / 3; }
+.photo-item.portrait { grid-column: span 1; aspect-ratio: 3 / 4; }
+
+
+/* ============================================================================
+   ABOUT SECTION STYLING
+   ============================================================================
+   Personal introduction with ID badge and info grid
+   - Left: Animated ID badge
+   - Right: Text content and toolkit info
+   ============================================================================ */
+
+/* Keyframe animations for badge entrance */
+@keyframes badgeSlideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Floating animation - subtle up and down movement */
+@keyframes badgeFloat {
+    0%, 100% {
+        transform: translateY(0px) rotateZ(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotateZ(1deg);
+    }
+}
+
+/* Glow pulse animation */
+@keyframes badgeGlowPulse {
+    0%, 100% {
+        box-shadow: 0 20px 40px rgba(92, 29, 51, 0.1), 0 0 0 0 rgba(242, 141, 53, 0);
+    }
+    50% {
+        box-shadow: 0 20px 40px rgba(92, 29, 51, 0.1), 0 0 0 15px rgba(242, 141, 53, 0);
+    }
+}
+
+/* Speech bubble entrance animation */
+@keyframes bubblePop {
+    0% {
+        opacity: 0;
+        transform: rotate(12deg) scale(0) translateX(20px);
+    }
+    60% {
+        opacity: 1;
+        transform: rotate(12deg) scale(1.1) translateX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(12deg) scale(1) translateX(0);
+    }
+}
+
+/* Photo entrance with slight zoom */
+@keyframes photoZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+/**
+ * About hero layout
+ * Two columns: badge on left, text on right
+ */
+.about-hero { 
+    display: grid; 
+    grid-template-columns: 0.7fr 1.3fr; 
+    gap: 50px; 
+    align-items: center; 
+    margin-bottom: 120px; 
+}
+
+/**
+ * Badge container wrapper
+ * Centering and positioning for the badge
+ */
+.about-badge-container { 
+    position: relative; 
+    width: 100%; 
+    max-width: 280px; 
+    margin: 0 auto; 
+    will-change: transform, opacity;
+}
+
+/**
+ * Badge container for 3D effects
+ * Perspective and transform-style for 3D rotation
+ */
+.badge-container { 
+    position: relative; 
+    width: 100%; 
+    max-width: 280px; 
+    margin: 0 auto; 
+    transform-style: preserve-3d; 
+    perspective: 1000px; 
+    will-change: transform, opacity;
+}
+
+/**
+ * ID badge card
+ * White background, rounded corners, shadow
+ * Animations handled by GSAP JavaScript for enhanced control
+ */
+.id-badge {
+    background: white; 
+    border-radius: 16px; 
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(92, 29, 51, 0.1); 
+    border: 1px solid var(--b-yellow);
+    text-align: center; 
+    position: relative; 
+    z-index: 2; 
+    transition: box-shadow 0.5s ease;
+}
+
+/**
+ * ID badge hover shadow enhancement
+ */
+.about-badge-container:hover .id-badge { 
+    box-shadow: 0 30px 60px rgba(92, 29, 51, 0.15); 
+}
+
+.badge-container:hover .id-badge { 
+    box-shadow: 0 45px 80px rgba(92, 29, 51, 0.15); 
+}
+
+/**
+ * Badge photo wrapper
+ * Square aspect ratio with border
+ */
+.badge-photo-wrap { 
+    width: 100%; 
+    aspect-ratio: 1/1; 
+    overflow: hidden; 
+    border-radius: 10px; 
+    border: 6px solid var(--blue); 
+    margin-bottom: 15px; 
+    position: relative;
+}
+
+/**
+ * Badge photo image
+ */
+.badge-photo-wrap img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover;
+}
+
+/**
+ * Name strip on badge
+ * Orange background with white text
+ */
+.badge-name-strip { 
+    background: var(--accent); 
+    color: white; 
+    padding: 8px; 
+    font-weight: 700; 
+    border-radius: 3px; 
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+/**
+ * Badge speech bubble
+ * Positioned absolutely, rotated, with shadow
+ * Animations handled by GSAP
+ */
+.badge-speech-bubble {
+    position: absolute; 
+    right: -25px; 
+    top: 50px;
+    background: var(--blue); 
+    padding: 8px 14px;
+    border-radius: 50px; 
+    font-weight: 800; 
+    font-size: 13px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06); 
+    transform: rotate(12deg);
+    white-space: nowrap; 
+    will-change: transform; 
+    backface-visibility: hidden;
+    transition: box-shadow 3s ease-in-out;
+}
+
+/**
+ * Badge speech bubble hover
+ */
+.badge-speech-bubble:hover { 
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1); 
+}
+
+/**
+ * Badge details grid (birthday, location, etc.)
+ */
+.badge-details { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; 
+    text-align: left; 
+    font-size: 11px; 
+}
+
+/**
+ * Badge detail label
+ */
+.badge-details span { 
+    display: block; 
+    color: var(--secondary); 
+    text-transform: uppercase; 
+    font-weight: 600; 
+    margin-bottom: 2px; 
+}
+
+/**
+ * Badge detail value
+ */
+.badge-details p { 
+    font-weight: 700; 
+    color: var(--text); 
+}
+
+/* Clip swing animation - subtle motion */
+@keyframes clipSwing {
+    0%, 100% {
+        transform: translateX(-50%) rotateZ(0deg);
+    }
+    50% {
+        transform: translateX(-50%) rotateZ(2deg);
+    }
+}
+
+/**
+ * Pseudo-element for badge - transparent hook
+ * Subtle transparent design with minimal border
+ */
+.id-badge::before {
+    content: ''; 
+    position: absolute; 
+    top: -28px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 45px; 
+    height: 40px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50% 50% 8px 8px;
+    border: 1.5px solid rgba(184, 207, 142, 0.3);
+    box-shadow: 
+        inset 0 1px 3px rgba(255, 255, 255, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    animation: clipSwing 3.5s ease-in-out infinite;
+    will-change: transform;
+    backdrop-filter: blur(2px);
+}
+
+/**
+ * Inner hook detail - transparent hanging loop
+ */
+.id-badge::after {
+    content: ''; 
+    position: absolute; 
+    top: -8px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 24px; 
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50% 50% 3px 3px;
+    border: 1.5px solid rgba(184, 207, 142, 0.25);
+    box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.03);
+    z-index: 11;
+    animation: clipSwing 3.5s ease-in-out infinite;
+    backdrop-filter: blur(1px);
+}
+
+
+
+/**
+ * Main heading in about section
+ */
+.hello-title { 
+    font-family: 'Fredoka'; 
+    font-size: 5rem; 
+    margin-bottom: 30px;
+}
+
+/**
+ * Modern 3-column info grid
+ * Card-based layout for experiences, education, toolkit
+ */
+.info-grid-modern { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+    margin-top: 100px; 
+}
+
+/**
+ * Info card container with entrance animation
+ * White background with shadow and border
+ */
+.info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    border: 1px solid var(--b-yellow);
+    box-shadow: 0 10px 40px rgba(92, 29, 51, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    animation: badgeSlideInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.info-card:nth-child(1) { animation-delay: 1s; }
+.info-card:nth-child(2) { animation-delay: 1.15s; }
+.info-card:nth-child(3) { animation-delay: 1.3s; }
+
+/**
+ * Info card hover effect
+ */
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(92, 29, 51, 0.15);
+    border-color: var(--accent);
+}
+
+/**
+ * Card icon wrapper
+ * Background circle with icon inside
+ */
+.card-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, rgba(242, 141, 53, 0.15), rgba(184, 207, 142, 0.15));
+    border-radius: 12px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover .card-icon-wrapper {
+    background: linear-gradient(135deg, rgba(242, 141, 53, 0.25), rgba(184, 207, 142, 0.25));
+    transform: scale(1.1);
+}
+
+/**
+ * Card icon emoji
+ */
+.card-icon {
+    font-size: 2.5rem;
+    display: block;
+}
+
+/**
+ * Card title
+ */
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+/**
+ * Card content wrapper
+ */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/**
+ * Separator line in card
+ */
+.separator {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--b-yellow), transparent);
+    margin: 20px 0;
+}
+
+/**
+ * Individual info item in card
+ */
+.info-item {
+    margin-bottom: 0;
+}
+
+/**
+ * Info item title
+ */
+.info-item h4 {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+/**
+ * Role location text
+ */
+.role-location {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.role-location span {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/**
+ * Date text
+ */
+.date {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/**
+ * Toolkit item in card
+ */
+.toolkit-item {
+    margin-bottom: 0;
+}
+
+/**
+ * Toolkit item label
+ */
+.toolkit-item h5 {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/**
+ * Toolkit item description
+ */
+.toolkit-item p {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/**
+ * Legacy info grid (for backward compatibility)
+ */
+.info-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 80px; 
+    margin-top: 80px; 
+}
+
+.info-col h3 { 
+    font-size: 1.5rem; 
+    margin-bottom: 25px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.info-item p { 
+    color: var(--secondary); 
+    font-size: 0.95rem; 
+}
+
+.toolkit-list h5 { 
+    color: var(--accent); 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    margin-bottom: 5px; 
+    font-size: 12px; 
+}
+
+
+/* ============================================================================
+   CONTACT FORM & FOOTER STYLING
+   ============================================================================
+   Contact section with form and info
+   Footer with social links and copyright
+   ============================================================================ */
+
+/**
+ * Contact container
+ * Two columns: contact info on left, form on right
+ */
+.contact-container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 80px; 
+}
+
+/**
+ * Contact form
+ * Vertical flex layout with consistent spacing
+ */
+form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+/**
+ * Form inputs and textarea
+ * Consistent styling, sage green border
+ */
+input, textarea { 
+    padding: 15px; 
+    border: 1px solid var(--b-yellow); 
+    border-radius: 4px; 
+    font-family: 'Inter'; 
+    background: white; 
+}
+
+/**
+ * Form submit button
+ * Orange background, white text
+ */
+button { 
+    padding: 15px; 
+    background: var(--accent); 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    font-weight: 600; 
+}
+
+/**
+ * Site footer
+ * Top border accent, light background
+ */
+.site-footer { 
+    padding: 30px 10% 20px; 
+    border-top: 2px solid var(--accent); 
+    margin-top: 50px; 
+    background: #fffaf5; 
+}
+
+/**
+ * Footer top section
+ * Flex layout with space between CTA and actions
+ */
+.footer-top { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+}
+
+/**
+ * Footer CTA text
+ */
+.footer-cta p { 
+    font-size: 0.95rem; 
+    font-weight: 600; 
+    margin-bottom: 4px; 
+}
+
+/**
+ * Footer CTA heading
+ */
+.footer-cta h2 { 
+    font-size: 1.4rem; 
+    font-weight: 700; 
+    letter-spacing: -0.5px; 
+}
+
+/**
+ * Footer action items container
+ */
+.footer-actions { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+/**
+ * Social media icons container
+ */
+.footer-socials { 
+    display: flex; 
+    gap: 10px; 
+}
+
+/**
+ * Individual social icon button
+ * Circular border with hover fill
+ */
+.social-icon { 
+    width: 36px; 
+    height: 36px; 
+    border: 1px solid var(--accent); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: var(--accent); 
+    text-decoration: none; 
+    transition: 0.3s; 
+}
+
+/**
+ * Social icon SVG sizing
+ */
+.social-icon svg { 
+    width: 17px; 
+    height: 17px; 
+}
+
+/**
+ * Social icon hover state
+ * Fills background with accent color
+ */
+.social-icon:hover { 
+    background: var(--accent); 
+    color: white; 
+}
+
+/**
+ * Back to top button
+ * Subtle style with hover fill
+ */
+.back-to-top { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    background: white; 
+    color: var(--text); 
+    border: 1px solid var(--accent); 
+    padding: 6px 16px; 
+    border-radius: 25px; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    transition: 0.3s; 
+    cursor: pointer; 
+}
+
+/**
+ * Back to top hover state
+ */
+.back-to-top:hover { 
+    background: var(--accent); 
+    color: white; 
+}
+
+/**
+ * Footer bottom section
+ * Centered copyright and made-by info
+ */
+.footer-bottom { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding-top: 20px; 
+}
+
+/**
+ * Made-by attribution text
+ */
+.made-by { 
+    font-size: 0.9rem; 
+    color: var(--text); 
+    font-weight: 500; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+}
+
+/**
+ * Hand-drawn icon styling
+ */
+.hand-drawn-icon { 
+    display: inline-flex; 
+    width: 20px; 
+    height: 20px; 
+}
+
+/* ============================================================================
+   MESSAGE MODAL / POP-UP STYLING
+   ============================================================================
+   Aesthetic success and error modals for form submission feedback
+   Features: smooth entrance animation, backdrop blur, icons
+   ============================================================================ */
+
+/* Modal keyframe animations */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes backdropsSlideIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
+
+@keyframes checkmarkDraw {
+    0% {
+        stroke-dasharray: 50;
+        stroke-dashoffset: 50;
+    }
+    100% {
+        stroke-dasharray: 50;
+        stroke-dashoffset: 0;
+    }
+}
+
+/**
+ * Message modal container
+ */
+.message-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/**
+ * Modal visible state
+ */
+.message-modal.active {
+    pointer-events: all;
+    opacity: 1;
+    visibility: visible;
+}
+
+/**
+ * Modal backdrop with blur effect
+ */
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(92, 29, 51, 0.3);
+    backdrop-filter: blur(5px);
+    animation: backdropsSlideIn 0.4s ease-out;
+    cursor: pointer;
+}
+
+/**
+ * Modal content card
+ */
+.message-modal-content {
+    position: relative;
+    z-index: 2;
+    background: white;
+    border-radius: 20px;
+    padding: 50px 40px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(92, 29, 51, 0.2);
+    border: 1px solid rgba(184, 207, 142, 0.3);
+    animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/**
+ * Modal icon wrapper
+ */
+.modal-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(242, 141, 53, 0.15), rgba(184, 207, 142, 0.15));
+    border-radius: 50%;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
+}
+
+/**
+ * Error icon wrapper
+ */
+.modal-icon-wrapper.error {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.15), rgba(255, 152, 0, 0.15));
+}
+
+/**
+ * Modal checkmark icon
+ */
+.modal-checkmark {
+    width: 45px;
+    height: 45px;
+    color: var(--accent);
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: checkmarkDraw 0.6s ease-out 0.3s forwards;
+}
+
+/**
+ * Modal icon (general)
+ */
+.modal-icon {
+    width: 45px;
+    height: 45px;
+    color: #FF6B6B;
+}
+
+/**
+ * Modal title
+ */
+.modal-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s backwards;
+}
+
+/**
+ * Error modal title
+ */
+.modal-title.error {
+    color: #FF6B6B;
+}
+
+/**
+ * Modal text
+ */
+.modal-text {
+    font-size: 1rem;
+    color: var(--secondary);
+    line-height: 1.6;
+    margin-bottom: 30px;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+}
+
+/**
+ * Modal close button
+ */
+.modal-close-btn {
+    padding: 14px 28px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s backwards;
+}
+
+.modal-close-btn:hover {
+    background: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(242, 141, 53, 0.25);
+}
+
+/**
+ * Error modal button
+ */
+.modal-close-btn.error {
+    background: #FF6B6B;
+}
+
+.modal-close-btn.error:hover {
+    background: #FF5252;
+    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.25);
+}
+
+
+/* ============================================================================
+   RESPONSIVE DESIGN - DESKTOP TO TABLET
+   ============================================================================
+   Breakpoint: 1024px
+   Adjusts layout for medium-sized screens
+   - Hero layout changes to single column
+   - Grid adjustments for projects and gallery
+   - Navigation stays visible
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+    /**
+     * Hero section becomes single column centered
+     */
+    .hero { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+        height: auto; 
+        padding-top: 140px; 
+        gap: 40px; 
+    }
+
+    /**
+     * Smaller profile circle on tablet
+     */
+    .profile-circle { 
+        width: 300px; 
+        height: 300px; 
+    }
+
+    /**
+     * Center name rows
+     */
+    .name-row { 
+        justify-content: center; 
+    }
+
+    /**
+     * About section single column
+     */
+    .about-hero { 
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+        text-align: center; 
+        margin-bottom: 60px; 
+    }
+
+    /**
+     * Smaller hello title
+     */
+    .hello-title { 
+        font-size: 3.5rem; 
+    }
+
+    /**
+     * About info grid single column
+     */
+    .info-grid { 
+        grid-template-columns: 1fr; 
+        gap: 50px; 
+        margin-top: 40px; 
+    }
+
+    /**
+     * Center info column headings
+     */
+    .info-col h3 { 
+        justify-content: center; 
+    }
+
+    /**
+     * Work grid stays 2 columns
+     */
+    .work-grid { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+    }
+
+    /**
+     * Contact form single column
+     */
+    .contact-container { 
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+    }
+
+    /**
+     * Adjust navbar padding
+     */
+    nav { 
+        padding: 20px 30px; 
+    }
+
+    /**
+     * Center footer CTA on tablet
+     */
+    .footer-top { 
+        flex-direction: column; 
+        gap: 25px; 
+        text-align: center; 
+    }
+
+    /**
+     * Center hero button group
+     */
+    .hero-btns { 
+        margin-left: 0; 
+        justify-content: center; 
+    }
+
+    /**
+     * Remove left margin from speech bubble and first name row
+     */
+    #speechBubble, .name-row:first-child { 
+        margin-left: 0 !important; 
+    }
+
+    /**
+     * Hide desktop only elements
+     */
+    .desktop-only { 
+        display: none !important; 
+    }
+
+    /**
+     * Adjust photo gallery columns
+     */
+    .photo-gallery-grid { 
+        column-count: 3; 
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - TABLET TO MOBILE
+   ============================================================================
+   Breakpoint: 900px
+   Further adjustments for smaller tablets
+   - Photo gallery reduces to 2 columns
+   ============================================================================ */
+
+@media (max-width: 900px) {
+    /**
+     * Photo gallery reduces to 2 columns
+     */
+    .photo-gallery-grid { 
+        column-count: 2; 
+    }
+
+    /**
+     * About hero responsive for tablets
+     */
+    .about-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    /**
+     * Info grid goes to 2 columns on tablets
+     */
+    .info-grid-modern {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - MOBILE PHONES
+   ============================================================================
+   Breakpoint: 768px
+   Major layout shifts for mobile devices
+   - Single column layouts
+   - Smaller images and fonts
+   - Touch-friendly spacing
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    /**
+     * Hero becomes full mobile stack
+     */
+    .hero { 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        padding-top: 100px; 
+    }
+
+    /**
+     * Hero content centered
+     */
+    .hero-content { 
+        align-items: center; 
+        width: 100%; 
+    }
+
+    /**
+     * Responsive name sizing
+     */
+    .playful-name { 
+        font-size: clamp(2.5rem, 12vw, 4rem); 
+        align-items: center; 
+    }
+
+    /**
+     * Full-width button group
+     */
+    .hero-btns { 
+        width: 100%; 
+        padding: 0 20px; 
+    }
+
+    /**
+     * Mobile profile circle size
+     */
+    .profile-circle { 
+        width: 280px; 
+        height: 280px; 
+        border-width: 8px; 
+    }
+
+    /**
+     * Work grid becomes single column on phones
+     */
+    .work-grid {
+        grid-template-columns: 1fr !important; 
+        gap: 40px; 
+        margin-bottom: 40px;
+    }
+
+    /**
+     * About hero responsive
+     */
+    .about-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 80px;
+    }
+
+    /**
+     * Info grid goes to 1 column on mobile
+     */
+    .info-grid-modern {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 60px;
+    }
+
+    /**
+     * Info card responsive
+     */
+    .info-card {
+        padding: 30px 24px;
+    }
+
+    /**
+     * Hello title responsive
+     */
+    .hello-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - SMALL PHONES
+   ============================================================================
+   Breakpoint: 480px
+   Extra small screen optimizations
+   - Single column for all layouts
+   - Smaller typography
+   - Compact spacing
+   ============================================================================ */
+
+@media (max-width: 480px) {
+    /**
+     * Very small heading on extra small phones
+     */
+    .hello-title { 
+        font-size: 2.5rem; 
+    }
+
+    /**
+     * Smaller badge container
+     */
+    .badge-container { 
+        max-width: 280px; 
+    }
+
+    /**
+     * Smaller section titles
+     */
+    .section-title { 
+        font-size: 2.5rem; 
+    }
+
+    /**
+     * Gallery single column on tiny screens
+     */
+    .photo-gallery-grid { 
+        column-count: 1; 
+    }
+}
+
+@media (max-width: 480px) {
+    .hello-title { font-size: 2.5rem; }
+    .badge-container { max-width: 280px; }
+    .section-title { font-size: 2.5rem; }
+    .photo-gallery-grid { column-count: 1; }
+}
+
+
+
+
+
+
+/* Prevent layout shifts when scaling */
+.char, .nav-item, .btn, .project-card {
+    will-change: transform;
+    display: inline-block; /* Essential for transforms to work correctly */
+}
+
+/* Enhanced Cursor Follower Reaction */
+body.cursor-hover #cursor-follower {
+    width: 30px;
+    height: 30px;
+    background: rgba(242, 141, 53, 0.15); 
+    border: 1px solid var(--accent);
+    backdrop-filter: blur(0.0px); /* Adds a premium frosted look to the cursor */
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+}
+
+/* Ensure the profile image stays grounded while text moves */
+#heroImage {
+    pointer-events: none; /* Let the parallax script handle this, not the magnetic one */
+}
+
+/* Media query for mobile devices One one project shows in phone version */
+@media (max-width: 768px) {
+    .work-grid {
+        /* Changes from 2 columns to 1 column */
+        grid-template-columns: 1fr !important; 
+        
+        /* Reduce the gap slightly so it doesn't look too huge on small screens */
+        gap: 40px; 
+        
+        margin-bottom: 40px;
+    }
+}
+
+
+
+
+/* style.css for main container scrooling animation */
+
+.work-section-container {
+    /* ... existing styles ... */
+    will-change: transform, box-shadow;
+    transition: box-shadow 0.5s ease;
+}
+
+/* Base state for individual work sections */
+.work-grid {
+    opacity: 0;
+    transform: scale(0.9) translateY(40px);
+    will-change: transform, opacity;
+}
+
+
+
+
+
+
+/* style.css */
+
+.work-section-container { 
+    position: relative;
+    z-index: 20;
+    background: var(--bg);
+    /* Change from -5vh to -20vh to close the gap */
+    margin-top: -20vh; 
+    padding: 80px 10%;
+    box-shadow: 0 -40px 100px rgba(92, 29, 51, 0.05);
+    border-radius: 40px 40px 0 0;
+}
+
+
+
+/* style.css */
+.appointment-btn {
+    display: inline-block;
+    padding: 14px 22px;
+    background: var(--text); /* Deep Burgundy */
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.secondary-btn {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid var(--text);
+}
+
+.appointment-btn:hover {
+    background: var(--accent); /* Changes to Vibrant Orange on hover */
+    color: white;
+    border-color: var(--accent);
+}

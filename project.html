@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ============================================================
+     PROJECT DETAIL PAGE
+     Individual project showcase template with case study layout
+     Dynamic content loaded from script.js based on project data
+     ============================================================ -->
+<head>
+    <!-- Character Encoding and Viewport Metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <!-- Page Title (dynamically updated) -->
+    <title>Project</title>
+    
+    <!-- External Fonts -->
+    <!-- Inter: Body text typography
+         Playfair Display: Large headings (h1, h2)
+         Fredoka: Playful accents and special elements -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&family=Fredoka:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Page-Specific Styles -->
+    <style>
+        /* Ensure the default cursor appears on standalone project pages
+           (main site uses a custom cursor implemented in script.js) */
+        * { cursor: auto !important; }
+    </style>
+    
+    <!-- Project Layout Styles -->
+    <style>
+        .project-hero{max-width:1000px;margin:48px auto;padding:24px}
+        .project-image{width:100%;max-height:520px;object-fit:cover;border-radius:12px}
+        .project-meta{margin-top:18px}
+        .back-link{display:inline-block;margin-bottom:18px;text-decoration:none;color:var(--text);font-weight:600}
+    </style>
+</head>
+
+<body>
+    <!-- Main Project Page Container -->
+    <main class="project-page">
+        <div class="project-container">
+            <!-- Back Navigation Link -->
+            <a class="back-link" href="index.html">← Back to work</a>
+
+            <!-- Project Hero Section: Title, Subtitle, and Overview -->
+            <section class="project-hero-grid">
+                <!-- Left Column: Project Information -->
+                <div class="hero-left">
+                    <!-- Project Title (Dynamically Populated) -->
+                    <h1 id="project-title">Project Title</h1>
+                    
+                    <!-- Project Subtitle / Metadata (Case Study Type, Discipline, Year) -->
+                    <p id="project-subtitle" class="muted">Case study · UI / Frontend · 2025</p>
+
+                    <!-- Project Summary / Overview -->
+                    <div id="project-summary" class="project-summary">
+                        <p>A concise, engaging summary of the project that highlights the problem solved, the impact, and your role. This area should be a compelling teaser for the case study.</p>
+                    </div>
+
+                    <!-- Project Metadata Grid: Role, Timeline, Team -->
+                    <div class="project-meta-row">
+                        <!-- Role / Position -->
+                        <div class="meta-col">
+                            <strong>Role</strong>
+                            <p id="project-role">Lead Developer, Designer</p>
+                        </div>
+                        
+                        <!-- Timeline / Duration -->
+                        <div class="meta-col">
+                            <strong>Timeline</strong>
+                            <p id="project-timeline">Jan 2025 — Mar 2025</p>
+                        </div>
+                        
+                        <!-- Team / Collaboration -->
+                        <div class="meta-col">
+                            <strong>Team</strong>
+                            <p id="project-team">Solo / Freelance</p>
+                        </div>
+                    </div>
+
+                    <!-- Project Tags / Skills and Tools Used -->
+                    <div id="project-tags" class="project-tags">
+                        <!-- Tech tags populated by script -->
+                    </div>
+
+                    <!-- Project Action Buttons: Live Demo and Code Links -->
+                    <div class="project-ctas">
+                        <!-- View Live Demo Button -->
+                        <a id="live-link" class="btn download-btn" href="#" target="_blank">View Live</a>
+                        
+                        <!-- View Source Code Button -->
+                        <a id="repo-link" class="btn contact-btn" href="#" target="_blank">View Code</a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Project Featured Image -->
+                <div class="hero-right">
+                    <!-- Project Hero Image Container -->
+                    <div class="project-image-wrap">
+                        <img id="project-image" class="project-image" src="" alt="Project image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Body: Case Study Content -->
+            <section class="project-body">
+                <!-- Overview Section -->
+                <h2>Overview</h2>
+                <div id="project-desc" class="project-desc">Full project description will appear here. Explain goals, challenges, and outcomes in clear paragraphs.</div>
+
+                <!-- Key Features / Highlights -->
+                <h3>Key Features</h3>
+                <ul id="project-features" class="project-features">
+                    <!-- Features populated by script -->
+                </ul>
+
+                <!-- Project Gallery / Additional Screenshots -->
+                <h3>Gallery</h3>
+                <div id="project-gallery" class="project-gallery">
+                    <!-- Thumbnails populated by script -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ========================================
+         FOOTER SECTION / SITE FOOTER (Shared)
+         Call to action, social links, navigation
+         ======================================== -->
+    <!-- Footer (copied from main site) -->
+    <footer class="site-footer">
+        <!-- Footer Top Section: CTA and Social Links -->
+        <div class="footer-top">
+            <!-- Footer Call-to-Action Text -->
+            <div class="footer-cta">
+                <p>Thanks for stopping by!</p>
+                <h2><span class="c2">Curious</span> to <span class="c5">collaborate</span>? Let's <span class="c1">make</span> it happen!</h2>
+            </div>
+            
+            <!-- Footer Action Links: Social Icons -->
+            <div class="footer-actions">
+                <!-- Social Media Icons Section -->
+                <div class="footer-socials">
+                    <!-- Email Icon Link -->
+                    <a href="mailto:xeedipu@gmail.com" class="social-icon hover-target">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                    
+                    <!-- LinkedIn Icon Link -->
+                    <a href="https://www.linkedin.com/in/dipu-sardar-1b6a07321/" target="_blank" class="social-icon hover-target">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    
+                    <!-- Instagram Icon Link -->
+                    <a href="https://www.instagram.com/xeedipu/" target="_blank" class="social-icon hover-target">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                </div>
+                
+                <!-- Back to Top Button -->
+                <button class="back-to-top hover-target" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg> Back To Top
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom: Copyright and Attribution -->
+        <div class="footer-bottom">
+            <!-- Made By Attribution with Decorative Icons -->
+            <div class="made-by">
+                Made with 
+                <span class="hand-drawn-icon"><svg viewBox="0 0 24 24" fill="#E91E63"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+                <span class="hand-drawn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#FFEB3B"/><circle cx="18" cy="16" r="3" fill="#FFEB3B"/></svg></span>
+                <span class="hand-drawn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M7 10h10l-1 10H8L7 10z" fill="#4CAF50"/><path d="M9 10L8.5 3h2L11 10" stroke="#FF9800"/><rect x="9" y="12" width="6" height="5" fill="#E91E63" opacity="0.6"/></svg></span>
+                by Dipu © 2025
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         PROJECT DATA & DYNAMIC RENDERING
+         Projects database and rendering logic
+         ======================================== -->
+    <script>
+        // Project Database: Array of project objects with metadata and content
+        const projects = [
+            {id:1, title:'Example Project A', subtitle:'Product design & frontend', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/phcs60tkala1xm0fsnsy.jpg', summary:'Built a polished UI for a concept product, focusing on accessibility and fluid interactions.', role:'Lead Developer', timeline:'Jan 2025 — Mar 2025', team:'Solo', tags:['React','GSAP','CSS'], desc:'Detailed case study: problem, approach, implementation, and outcomes. Include metrics and learnings.', features:['Responsive UI','Animated interactions','Accessible markup'], gallery:[ 'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/phcs60tkala1xm0fsnsy.jpg','https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/gwnywcdcax08vdt6q9ep.jpg' ], live:'#', repo:'#'},
+            {id:2, title:'Example Project B', subtitle:'Mobile-first web app', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/gwnywcdcax08vdt6q9ep.jpg', summary:'A modern web app optimized for mobile devices with a focus on speed.', role:'Frontend Engineer', timeline:'Apr 2024 — Jun 2024', team:'2 Devs', tags:['Vanilla JS','Performance'], desc:'Project B description.', features:['Progressive loading','Optimized images'], gallery:['https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/gwnywcdcax08vdt6q9ep.jpg'], live:'#', repo:'#'},
+            {id:3, title:'Example Project C', subtitle:'Visual exploration', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/xhqchx4wvivw3wxrvki8.jpg', summary:'Experimenting with layout and motion to create delightful micro-interactions.', role:'Designer & Dev', timeline:'2024', team:'Solo', tags:['Design','Animation'], desc:'Project C description.', features:['Micro-interactions','Unique layout'], gallery:['https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/xhqchx4wvivw3wxrvki8.jpg'], live:'#', repo:'#'},
+            {id:4, title:'Example Project D', subtitle:'Component library', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/fzr4t6kc3qr66tfnbmey.avif', summary:'Design system and component library for scalable product development.', role:'Contributor', timeline:'2023', team:'Open Source', tags:['Design System','Components'], desc:'Project D description.', features:['Reusable components','Tokens'], gallery:['https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/fzr4t6kc3qr66tfnbmey.avif'], live:'#', repo:'#'},
+            {id:5, title:'Example Project E', subtitle:'Branding & visuals', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/zs26rtfmcwglv35wgr0q.jpg', summary:'Visual identity and marketing assets.', role:'Designer', timeline:'2022', team:'Agency', tags:['Branding','Illustration'], desc:'Project E description.', features:['Brand guidelines','Assets'], gallery:['https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/zs26rtfmcwglv35wgr0q.jpg'], live:'#', repo:'#'},
+            {id:6, title:'Example Project F', subtitle:'E-commerce UI', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/us3c9jexgy9jef7leodn.jpg', summary:'E-commerce templates with conversion-focused patterns.', role:'Frontend', timeline:'2023', team:'3 Devs', tags:['HTML','CSS','JS'], desc:'Project F description.', features:['Checkout flow','Product grid'], gallery:['https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/us3c9jexgy9jef7leodn.jpg'], live:'#', repo:'#'},
+            {id:7, title:'Example Project G', subtitle:'Experimental UI', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929993/qrpf67sxynq2grsdqnpg.jpg', summary:'Playful experiments with motion and layout.', role:'Maker', timeline:'2022', team:'Solo', tags:['Animation','Exploration'], desc:'Project G description.', features:['Playful motion'], gallery:['https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929993/qrpf67sxynq2grsdqnpg.jpg'], live:'#', repo:'#'},
+            {id:8, title:'Example Project H', subtitle:'Photography site', img:'https://res.cloudinary.com/dgfor5x8u/image/upload/v1769930116/wdkxremp9htfqgk5oab7.jpg', summary:'A clean gallery-driven experience for a photographer.', role:'Fullstack', timeline:'2021', team:'Solo', tags:['Photos','Gallery'], desc:'Project H description.', features:['Lightbox','Grid'], gallery:['https://res.cloudinary.com/dgfor5x8u/image/upload/v1769930116/wdkxremp9htfqgk5oab7.jpg'], live:'#', repo:'#'}
+        ];
+
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get('id'), 10) || 1;
+        const proj = projects.find(p=>p.id===id);
+
+        function renderProject(p){
+            if(!p){ document.getElementById('project-title').innerText = 'Project not found'; return; }
+            document.getElementById('project-title').innerText = p.title;
+            document.getElementById('project-subtitle').innerText = p.subtitle || '';
+            document.getElementById('project-summary').innerHTML = '<p>'+p.summary+'</p>';
+            document.getElementById('project-role').innerText = p.role || '';
+            document.getElementById('project-timeline').innerText = p.timeline || '';
+            document.getElementById('project-team').innerText = p.team || '';
+            document.getElementById('project-image').src = p.img;
+            document.getElementById('project-image').alt = p.title;
+            document.getElementById('project-desc').innerHTML = '<p>'+p.desc+'</p>';
+
+            // tags
+            const tagsWrap = document.getElementById('project-tags'); tagsWrap.innerHTML='';
+            (p.tags||[]).forEach(t=>{ const el = document.createElement('span'); el.className='tag'; el.innerText=t; tagsWrap.appendChild(el); });
+
+            // features
+            const feat = document.getElementById('project-features'); feat.innerHTML='';
+            (p.features||[]).forEach(f=>{ const li = document.createElement('li'); li.innerText = f; feat.appendChild(li); });
+
+            // gallery
+            const gallery = document.getElementById('project-gallery'); gallery.innerHTML='';
+            (p.gallery||[]).forEach(src=>{ const img = document.createElement('img'); img.src=src; img.alt=p.title; img.className='gallery-thumb hover-target'; gallery.appendChild(img); });
+
+            // links
+            document.getElementById('live-link').href = p.live || '#';
+            document.getElementById('repo-link').href = p.repo || '#';
+        }
+
+        renderProject(proj);
+    </script>
+</body>
+</html>

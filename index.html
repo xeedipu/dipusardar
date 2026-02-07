@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ========================================
+         DOCUMENT META & CHARACTER ENCODING
+         ======================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIPU SARDAR</title>
+    
+    <!-- ========================================
+         EXTERNAL FONTS - GOOGLE FONTS
+         Fonts: Inter (body), Playfair Display (headings), Fredoka (playful text)
+         ======================================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&family=Fredoka:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- ========================================
+         CUSTOM STYLESHEET
+         Main CSS file with all styling
+         ======================================== -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ========================================
+         ANIMATION LIBRARY - GSAP (GreenSock)
+         Used for smooth animations and scroll triggers
+         ======================================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- ========================================
+         EMAIL SERVICE - EMAILJS
+         Enables contact form email sending
+         ======================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+    <!-- ========================================
+         CUSTOM CURSOR ELEMENTS
+         Inner dot and outer ring for tracking mouse position
+         ======================================== -->
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
+    <!-- ========================================
+         NAVIGATION BAR
+         Fixed header with logo and navigation links
+         Responsive menu for mobile devices
+         ======================================== -->
+    <nav id="navbar">
+        
+        <!-- Logo: "D/*" (Letter, Slash, Asterisk) -->
+        <div class="logo-container hover-target" onclick="showView('home')">
+            <span class="logo-letter">D</span>
+            <span class="logo-slash">/</span>
+            <span class="logo-mark">*</span>
+        </div>
+        
+        <!-- Desktop Navigation Links (visible on larger screens) -->
+        <div class="nav-links desktop-only">
+            <a onclick="showView('home')" class="hover-target nav-item active" id="link-home">Work</a>
+            <a onclick="showView('photos')" class="hover-target nav-item" id="link-photos">Photos</a> 
+            <a onclick="showView('about')" class="hover-target nav-item" id="link-about">About</a>
+            <a onclick="showView('contact')" class="hover-target nav-item" id="link-contact">Contact</a>
+        </div>
+
+        <!-- Mobile Hamburger Menu Toggle (visible on small screens) -->
+        <div class="nav-right-placeholder">
+            <div class="menu-toggle" id="mobile-menu-trigger">
+                <div class="bar bar-1"></div>
+                <div class="bar bar-2"></div>
+                <div class="bar bar-3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Overlay (slides in from right on mobile) -->
+    <div class="nav-overlay" id="nav-overlay">
+        <!-- Close button for mobile menu -->
+        <button class="menu-close-btn" id="menu-close-btn" onclick="toggleMobileMenu()">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <!-- Mobile navigation links -->
+        <div class="mobile-nav-links">
+            <a onclick="toggleMobileMenu('home')" class="m-nav-item">Work</a>
+            <a onclick="toggleMobileMenu('photos')" class="m-nav-item">Photos</a>
+            <a onclick="toggleMobileMenu('about')" class="m-nav-item">About</a>
+            <a onclick="toggleMobileMenu('contact')" class="m-nav-item">Contact</a>
+        </div>
+    </div>
+
+    <!-- ========================================
+         HOME VIEW / HERO SECTION
+         Main landing section with introduction and portfolio
+         ======================================== -->
+    <main id="view-home" class="view-section active">
+        <!-- Hero Section: Greeting and Profile -->
+        <section class="hero">
+            <!-- Left Side: Text Content -->
+            <div class="hero-content">
+                <!-- Greeting speech bubble -->
+                <div class="speech-bubble" id="speechBubble">Hi! My name is...</div>
+                
+                <!-- Animated Name Display -->
+                <div class="playful-name">
+                    <div class="name-row">
+                        <span class="char c1">D</span><span class="char c2">I</span><span class="char c3">P</span><span class="char c4">U</span>
+                    </div>
+                    <div class="name-row">
+                        <span class="char c5">S</span><span class="char c1">A</span><span class="char c2">R</span><span class="char c3">D</span><span class="char c4">A</span><span class="char c5">R</span>
+                    </div>
+                </div>
+
+                <!-- Hero Description and Action Buttons -->
+                <div class="hero-content">
+                    <p style="color:var(--secondary); font-size: 1.1rem; max-width: 500px;">
+                        CSE Student & Creative Developer. Currently in 4th Semester, building digital logic with style.
+                    </p>
+                    <!-- Call-to-Action Buttons -->
+                    <div class="hero-btns">
+                        <a href="EuroPassCV.pdf" download class="btn download-btn hover-target">Download CV</a>
+                        <a onclick="showView('contact')" class="btn contact-btn hover-target">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Profile Image (with 3D parallax effect) -->
+            <div class="hero-img-container" id="heroImage">
+                <img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769797125/iyf4rq3ocq4bzhnmqd1y.jpg" alt="Dipu Sardar" class="profile-circle hover-target">
+            </div>
+        </section>
+
+        <!-- Portfolio/Work Section -->
+        <div class="work-section-container">
+            <!-- Project Grid Row 1 -->
+            <div class="work-grid">
+                <!-- Project Card 1 -->
+                <a href="project.html?id=1" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/phcs60tkala1xm0fsnsy.jpg" alt="Apple Design"></div>
+                    <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will my add my work & experience soon!<br>Picture from pinterest</p>
+                    </div>
+                </a>
+                <!-- Project Card 2 -->
+                <a href="project.html?id=2" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/gwnywcdcax08vdt6q9ep.jpg" alt="SoFi Finance"></div>
+                   <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will add my add my work & experience soon!</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Project Grid Row 2 -->
+            <div class="work-grid">
+                <!-- Project Card 3 -->
+                <a href="project.html?id=3" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/xhqchx4wvivw3wxrvki8.jpg" alt="Apple Design"></div>
+                   <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will add my add my work & experience soon!</p>
+                    </div>
+                </a>
+                <!-- Project Card 4 -->
+                <a href="project.html?id=4" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/fzr4t6kc3qr66tfnbmey.avif" alt="SoFi Finance"></div>
+                    <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will add my add my work & experience soon!</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Project Grid Row 3 -->
+            <div class="work-grid">
+                <!-- Project Card 5 -->
+                <a href="project.html?id=5" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/zs26rtfmcwglv35wgr0q.jpg" alt="Apple Design"></div>
+                    <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will add my add my work & experience soon!</p>
+                    </div>
+                </a>
+                <!-- Project Card 6 -->
+                <a href="project.html?id=6" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929637/us3c9jexgy9jef7leodn.jpg" alt="SoFi Finance"></div>
+                    <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will add my add my work & experience soon!</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Project Grid Row 4 -->
+            <div class="work-grid">
+                <!-- Project Card 7 -->
+                <a href="project.html?id=7" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769929993/qrpf67sxynq2grsdqnpg.jpg" alt="Apple Design"></div>
+                    <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will add my add my work & experience soon!</p>
+                    </div>
+                </a>
+                <!-- Project Card 8 -->
+                <a href="project.html?id=8" class="project-card hover-target">
+                    <div class="project-img-box"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769930116/wdkxremp9htfqgk5oab7.jpg" alt="SoFi Finance"></div>
+                    <div class="project-info">
+                        <h3>This is an Example</h3>
+                        <p>I will add my add my work & experience soon!</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========================================
+         PHOTOS VIEW / GALLERY SECTION
+         CSS Column-based masonry gallery layout
+         Images displayed in responsive columns
+         ======================================== -->
+    <section id="view-photos" class="view-section page-content">
+        <!-- Gallery Title -->
+        <h2 class="section-title">Photo Gallery</h2>
+        
+        <!-- Masonry Gallery Grid -->
+        <div class="photo-gallery-grid">
+            <!-- Row 1: Wide format photos -->
+            <div class="photo-item wide hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769788874/ep4vrzdmdnmjcbqkoqli.jpg" alt="Gallery"></div>
+            <div class="photo-item wide hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898068/zt9muappmwpnqogjy0w1.jpg" alt="Gallery"></div>
+
+            <!-- Row 2: Tall format photos -->
+            <div class="photo-item tall hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769789904/pg21buos1wlxnhhlwvsg.png" alt="Gallery"></div>
+            <div class="photo-item tall hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/czsruurrtv2mf959wk2m.jpg" alt="Gallery"></div>
+            <!-- Portrait format photos -->
+            <div class="photo-item portrait hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898086/zpcs8inmgnvhzagu6inc.jpg" alt="Gallery"></div>
+            <div class="photo-item portrait hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769795121/epfpwbcnj3dngnlhf3ko.jpg" alt="Gallery"></div>
+
+            <!-- Row 3: More wide format photos -->
+            <div class="photo-item wide hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898068/benr9tztusxp1ug0xzbv.jpg" alt="Gallery"></div>
+            <div class="photo-item wide hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898073/ff2seowiti5z6vt75wol.jpg" alt="Gallery"></div>
+
+            <!-- Row 4: Tall and portrait formats -->
+            <div class="photo-item tall hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898116/g9pcslwke7bq6imvvbib.jpg" alt="Gallery"></div>
+            <div class="photo-item tall hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898097/v0zaflskqgtokilvewl2.jpg" alt="Gallery"></div>
+            <div class="photo-item portrait hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898094/c1xusfkonrn77hyff2af.jpg" alt="Gallery"></div>
+            <div class="photo-item portrait hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898107/i739uc5vaaco78t7ulql.jpg" alt="Gallery"></div>
+
+            <!-- Row 5: Final wide format photos -->
+            <div class="photo-item wide hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898120/qlayxnhs6yz57ezsxer4.jpg" alt="Gallery"></div>
+            <div class="photo-item wide hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898106/r4eqceuuta3xvpygq1h4.jpg" alt="Gallery"></div>
+
+            <!-- Row 6: Last tall and portrait formats -->
+            <div class="photo-item tall hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898099/ow0bgm3ddc1ffqfexfyp.jpg" alt="Gallery"></div>
+            <div class="photo-item tall hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898103/lefqo9l3f9ihtt0vlwu7.jpg" alt="Gallery"></div>
+            <div class="photo-item portrait hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898084/mkm5qv7lejgzddcehv1b.jpg" alt="Gallery"></div>
+            <div class="photo-item portrait hover-target"><img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769898076/cauyshiipvprchlfrvgi.jpg" alt="Gallery"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ABOUT VIEW / PERSONAL INTRODUCTION
+         ID badge display and personal information
+         Experience, education, and toolkit details
+         ======================================== -->
+    <section id="view-about" class="view-section page-content">
+        <!-- About Hero Section: Introducing Dipu -->
+        <div class="about-hero">
+            <!-- Left: ID Badge -->
+            <div class="about-badge-container">
+                <div class="id-badge">
+                    <div class="badge-photo-wrap">
+                        <img src="https://res.cloudinary.com/dgfor5x8u/image/upload/v1769797125/iyf4rq3ocq4bzhnmqd1y.jpg" alt="Dipu Sardar">
+                    </div>
+                    <div class="badge-speech-bubble" id="badgeBubble">Nice to meet u!</div>
+                    <div class="badge-name-strip">Dipu Sardar</div>
+                    <div class="badge-details">
+                        <div><span>Date of Birth</span><p>13/07/2002</p></div>
+                        <div><span>Location</span><p>Barishal, Bangladesh</p></div>
+                        <div><span>Pronouns</span><p>He/Him</p></div>
+                        <div><span>Role</span><p>CSE Student</p></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right: Intro Text -->
+            <div class="about-intro">
+                <h1 class="hello-title"><span class="c5">H</span><span class="c2">e</span><span class="c4">l</span><span class="c1">l</span><span class="c3">o</span><span class="c5">!</span> 👋</h1>
+                <div class="about-intro-text">
+                    <p>I’m <strong>Dipu</strong>, a CSE student studying computer science with a focus on <strong>Software Engineering</strong> and <strong>Interactive Design</strong>.</p>
+                    <br>
+                    <p>I enjoy creating things that inspire joy—whether through building software or documenting my lifestyle journey on YouTube.</p>
+                    <br>
+                    <p>Currently in my <strong>4th Semester</strong> (ending June 2026), I aim to create digital experiences that foster accessibility and connection.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Grid: 3-Column Card Layout -->
+        <div class="info-grid-modern">
+            <!-- Card 1: Experiences -->
+            <div class="info-card">
+                <div class="card-icon-wrapper">
+                    <span class="card-icon">🎖️</span>
+                </div>
+                <h3 class="card-title">Experiences</h3>
+                <div class="card-content">
+                    <div class="info-item">
+                        <h4>Vlogger</h4>
+                        <p class="role-location">@ <span>YouTube</span></p>
+                        <p class="date">Sep 2022 - Present</p>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="info-item">
+                        <h4>Web Developer</h4>
+                        <p class="role-location">@ <span>Freelance</span></p>
+                        <p class="date">Jan 2025 - Present</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Education -->
+            <div class="info-card">
+                <div class="card-icon-wrapper">
+                    <span class="card-icon">🎓</span>
+                </div>
+                <h3 class="card-title">Education</h3>
+                <div class="card-content">
+                    <div class="info-item">
+                        <h4>B.Sc. Computer Science</h4>
+                        <p class="role-location">@ <span>CSE Department</span></p>
+                        <p class="date">July 2024 - June 2028</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Toolkit -->
+            <div class="info-card">
+                <div class="card-icon-wrapper">
+                    <span class="card-icon">✏️</span>
+                </div>
+                <h3 class="card-title">Toolkit</h3>
+                <div class="card-content">
+                    <div class="toolkit-item">
+                        <h5>Skills</h5>
+                        <p>Algorithm Design, Database Management, System Analysis, UI/UX Design.</p>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="toolkit-item">
+                        <h5>Tools</h5>
+                        <p>VS Code, GSAP, Figma, C++, JavaScript, SQL.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================
+         CONTACT VIEW / GET IN TOUCH SECTION
+         Contact form and contact information
+         Social media links and appointment booking
+         ======================================== -->
+    <section id="view-contact" class="view-section page-content">
+        <!-- Section Title -->
+        <h2 class="section-title">Get In Touch</h2>
+        
+        <!-- Contact Container: Info + Form -->
+        <div class="contact-container">
+            <!-- Left Side: Contact Information -->
+            <div class="contact-info">
+                <h3>Contact Details</h3>
+                
+                <!-- Phone Contact -->
+                <p style="margin: 20px 0;">
+                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="black" style="vertical-align: -0.2em;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    Phone: <strong>+880 1333-655039</strong>
+                </p>
+                
+                <!-- Email Contact -->
+                <p>
+                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="black" style="vertical-align: -0.2em;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Email: <strong>xeedipu@gmail.com</strong>
+                </p>
+                <br>
+                
+                <!-- Location Contact -->
+                <p>
+                    <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="black" style="vertical-align: -0.2em;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Rupatoli Housing State, Barisal Sadar Upazila, Bangladesh.
+                </p>
+
+                <!-- Schedule a Call Section -->
+                <div style="margin-top:30px;">
+                    <h3>Schedule a Call</h3>
+                    <p style="margin:12px 0; color:var(--secondary);">Book a convenient time directly on my calendar.</p>
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <!-- Calendly Appointment Link -->
+                        <a href="https://calendly.com/xeedipu/30min" target="_blank" class="hover-target" style="display:inline-block; padding:14px 22px; background:var(--text); color:white; border-radius:6px; text-decoration:none; font-weight:600;">Book an Appointment</a>
+                        
+                        <!-- Direct Phone Call Link -->
+                        <a href="tel:+8801333655039" class="hover-target" style="display:inline-block; padding:14px 22px; background:var(--b-yellow); color:var(--text); border-radius:6px; text-decoration:none; font-weight:600;">Call Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form (EmailJS) -->
+            <form id="contact-form" class="hover-target">
+                <!-- Name Input -->
+                <input type="text" name="from_name" placeholder="Your Name" required>
+                
+                <!-- Email Input -->
+                <input type="email" name="from_email" placeholder="Your Email" required>
+                
+                <!-- Message Textarea -->
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="hover-target">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER SECTION / SITE FOOTER
+         Call to action, social links, navigation
+         ======================================== -->
+    <footer class="site-footer">
+        <!-- Footer Top Section: CTA and Social Links -->
+        <div class="footer-top">
+            <!-- Footer Call-to-Action Text -->
+            <div class="footer-cta">
+                <p>Thanks for stopping by!</p>
+                <h2><span class="c2">Curious</span> to <span class="c5">collaborate</span>? Let's <span class="c1">make</span> it happen!</h2>
+            </div>
+            
+            <!-- Footer Action Links: Social Icons -->
+            <div class="footer-actions">
+                <!-- Social Media Icons Section -->
+                <div class="footer-socials">
+                    <!-- Email Icon Link -->
+                    <a href="mailto:xeedipu@gmail.com" class="social-icon hover-target">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                    
+                    <!-- LinkedIn Icon Link -->
+                    <a href="https://www.linkedin.com/in/dipu-sardar-1b6a07321/" target="_blank" class="social-icon hover-target">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    
+                    <!-- Instagram Icon Link -->
+                    <a href="https://www.instagram.com/xeedipu/" target="_blank" class="social-icon hover-target">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                </div>
+                
+                <!-- Back to Top Button -->
+                <button class="back-to-top hover-target" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg> Back To Top
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom: Copyright and Attribution -->
+        <div class="footer-bottom">
+            <!-- Made By Attribution with Decorative Icons -->
+            <div class="made-by">
+                Made with 
+                <span class="hand-drawn-icon"><svg viewBox="0 0 24 24" fill="#E91E63"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+                <span class="hand-drawn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2196F3" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#FFEB3B"/><circle cx="18" cy="16" r="3" fill="#FFEB3B"/></svg></span>
+                <span class="hand-drawn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.5"><path d="M7 10h10l-1 10H8L7 10z" fill="#4CAF50"/><path d="M9 10L8.5 3h2L11 10" stroke="#FF9800"/><rect x="9" y="12" width="6" height="5" fill="#E91E63" opacity="0.6"/></svg></span>
+                by Dipu © 2025
+            </div>
+        </div>
+    </footer>
+
+    <!-- Message Success Modal Popup -->
+    <div id="message-modal" class="message-modal">
+        <div class="message-modal-content">
+            <!-- Success Icon -->
+            <div class="modal-icon-wrapper">
+                <svg class="modal-checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            
+            <!-- Success Message -->
+            <h2 class="modal-title">Message Sent! 🎉</h2>
+            <p class="modal-text">Thank you for reaching out! I'll get back to you as soon as possible.</p>
+            
+            <!-- Close Button -->
+            <button class="modal-close-btn" onclick="closeMessageModal()">Got It</button>
+        </div>
+        
+        <!-- Modal Backdrop -->
+        <div class="modal-backdrop" onclick="closeMessageModal()"></div>
+    </div>
+
+    <!-- Error Modal Popup -->
+    <div id="error-modal" class="message-modal error-modal">
+        <div class="message-modal-content">
+            <!-- Error Icon -->
+            <div class="modal-icon-wrapper error">
+                <svg class="modal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            
+            <!-- Error Message -->
+            <h2 class="modal-title error">Oops! 😔</h2>
+            <p class="modal-text">Something went wrong. Please try again later.</p>
+            
+            <!-- Close Button -->
+            <button class="modal-close-btn error" onclick="closeErrorModal()">Try Again</button>
+        </div>
+        
+        <!-- Modal Backdrop -->
+        <div class="modal-backdrop" onclick="closeErrorModal()"></div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
