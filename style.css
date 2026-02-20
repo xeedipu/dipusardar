@@ -1,0 +1,3544 @@
+/* ============================================================================
+   DESIGN SYSTEM & COLOR VARIABLES
+   ============================================================================
+   Central color palette used throughout the site
+   - bg: Creamy white background
+   - text: Deep burgundy for main text
+   - secondary: Muted brown for secondary text
+   - accent: Vibrant orange for highlights
+   - blue/b-yellow: Sage green for accents
+   ============================================================================ */
+:root {
+    --bg: #FCDBDB;
+    /* Rose Dust - Main background */
+    --text: #800020;
+    /* Burgundy - Primary text color */
+    --secondary: #800020;
+    /* Burgundy - Secondary text color */
+    --accent: #800020;
+    /* Burgundy - Interactive highlights */
+    --blue: #800020;
+    /* Burgundy - Accent borders and highlights */
+    --b-yellow: #800020;
+    /* Burgundy - Alternative accent color */
+}
+
+/* ============================================================================
+   PRELOADER STYLES
+   ============================================================================ */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-brand {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+    letter-spacing: -0.02em;
+    position: relative;
+    opacity: 0.3;
+    pointer-events: none;
+    white-space: nowrap;
+    margin-bottom: -2vh;
+    z-index: 1;
+}
+
+.loader-progress {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(8rem, 25vw, 20rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 0.8;
+    z-index: 2;
+    mix-blend-mode: difference;
+    font-variant-numeric: tabular-nums;
+}
+
+body.loading {
+    overflow: hidden !important;
+}
+
+
+/* ============================================================================
+   BASE STYLES & GLOBAL RESETS
+   ============================================================================
+   Foundational styles applied to all elements
+   ============================================================================ */
+
+/**
+ * Universal element reset
+ * Remove default margins, padding, and enable box-sizing
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/**
+ * Body styles
+ * Set background, text color, font family
+ * Hide horizontal scrollbar overflow
+ */
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+
+
+/* ============================================================================
+   LOGO COMPONENT STYLES
+   ============================================================================
+   Styling for the "D/*" logo in the navigation
+   - Letter: Primary logo character
+   - Slash: Decorative slash element
+   - Mark: Asterisk accent mark
+   ============================================================================ */
+
+/**
+ * Logo container
+ * Flexbox layout for logo components with cursor pointer
+ * User-select disabled to prevent text selection on click
+ */
+.logo-container {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 5px 10px;
+    overflow: visible;
+}
+
+/**
+ * Main logo letter (D)
+ * Large, bold, deep burgundy color
+ */
+.logo-letter {
+    font-size: 1.8rem;
+    color: var(--text);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/**
+ * Logo slash (/)
+ * Separator between letter and mark
+ * Negative margin for tight kerning
+ */
+.logo-slash {
+    font-size: 1.8rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-left: -3px;
+    display: inline-block;
+    will-change: transform;
+}
+
+/**
+ * Logo accent mark (*)
+ * Small asterisk in vibrant orange
+ * Positioned absolutely in bottom-right corner
+ */
+.logo-mark {
+    font-size: 1.1rem;
+    color: var(--accent);
+    position: absolute;
+    bottom: 5px;
+    right: 6px;
+    font-weight: 300;
+}
+
+
+/* ============================================================================
+   CUSTOM FONTS
+   ============================================================================ */
+@font-face {
+    font-family: 'Twizzlefrap';
+    src: url('./Twizzlefrap-G3YdD.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ============================================================================
+   LOGO COMPONENT STYLES
+   ============================================================================ */
+.logo-container {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    font-family: 'Twizzlefrap', 'Courier New', serif;
+    font-size: 2rem;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: -1px;
+    display: block;
+    mix-blend-mode: difference;
+}
+
+/* ============================================================================
+   NAVIGATION STYLING
+   ============================================================================
+   Fixed navbar with centered navigation links
+   Includes hover effects and active state styling
+   ============================================================================ */
+
+/**
+ * Main navigation bar
+ * Fixed positioning at top, flexbox layout
+ * Semi-transparent background with backdrop blur for glassmorphism effect
+ */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(252, 219, 219, 0.8);
+    backdrop-filter: blur(12px);
+    transition: transform 0.4s ease-in-out;
+}
+
+/**
+ * Navigation links container
+ * Centered flex layout with sage green background
+ * Rounded pill-shaped container with subtle border
+ */
+.nav-links.desktop-only {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(128, 0, 32, 0.3);
+    padding: 6px;
+    border-radius: 100px;
+    border: 1px solid rgba(128, 0, 32, 0.1);
+    box-shadow: 0 4px 20px rgba(128, 0, 32, 0.05);
+}
+
+/**
+ * Individual navigation links
+ * Smooth transitions for hover and active states
+ */
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 100px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    position: relative;
+}
+
+/**
+ * Navigation link hover state
+ * Subtle background color change
+ */
+.nav-links a:hover {
+    color: var(--text);
+    background: rgba(128, 0, 32, 0.08);
+}
+
+/**
+ * Active navigation link
+ * White text on orange background
+ * Enhanced shadow for prominence
+ */
+.nav-links a.active {
+    color: white;
+    background: var(--accent);
+    box-shadow: 0 2px 10px rgba(128, 0, 32, 0.2);
+    font-weight: 600;
+}
+
+/**
+ * Placeholder for right side of navbar
+ * Ensures menu toggle has space
+ */
+.nav-right-placeholder {
+    width: 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/**
+ * Menu toggle (hamburger button)
+ * Hidden on desktop, visible on mobile
+ */
+.menu-toggle {
+    display: none;
+}
+
+/**
+ * Nav overlay for mobile menu
+ * Full-screen menu with slide-in animation
+ */
+.nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    visibility: hidden;
+    flex-direction: column;
+}
+
+
+/* ============================================================================
+   RESPONSIVE NAVIGATION - MOBILE STYLES
+   ============================================================================
+   Mobile-specific navigation and menu toggle styles
+   Hamburger menu, menu items, and close button
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+
+    /**
+     * Show hamburger menu toggle on mobile/tablet
+     */
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 2001;
+    }
+
+    /**
+     * Hide desktop navigation links on small screens
+     */
+    .desktop-only {
+        display: none !important;
+    }
+
+    /**
+     * Mobile menu overlay styles
+     */
+    .nav-overlay {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        visibility: hidden;
+        flex-direction: column;
+    }
+
+    /**
+     * Close button styling for mobile menu
+     * Positioned at top-right corner
+     */
+    .menu-close-btn {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: none;
+        border: none;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text);
+        transition: all 0.3s ease;
+        padding: 0;
+        z-index: 2001;
+        opacity: 0;
+        scale: 0.8;
+        pointer-events: none;
+    }
+
+    /**
+     * Close button hover effect
+     */
+    .menu-close-btn:hover {
+        transform: rotate(90deg);
+        color: var(--accent);
+    }
+
+    /**
+     * Close button SVG sizing
+     */
+    .menu-close-btn svg {
+        width: 28px;
+        height: 28px;
+        stroke-width: 2.5;
+    }
+
+    /**
+     * Enable close button when menu is active
+     */
+    .nav-overlay.active .menu-close-btn {
+        pointer-events: auto;
+    }
+
+    /**
+     * Hamburger menu bars
+     */
+    .bar {
+        width: 28px;
+        height: 3px;
+        background: var(--text);
+        border-radius: 10px;
+        transition: 0.4s;
+        display: block;
+    }
+
+    /**
+     * Mobile navigation links layout
+     */
+    /* =========================================
+       AESTHETIC MOBILE MENU: IMAGE REVEAL & OVERSIZED TYPO
+       ========================================= */
+
+    /* =========================================
+       AESTHETIC MOBILE MENU: KINETIC & MINIMAL
+       ========================================= */
+
+    /* Hide the image preview container as we are simplifying */
+    .nav-preview-container {
+        display: none;
+    }
+
+    .mobile-nav-links {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        gap: 4vh;
+        z-index: 2;
+        background: var(--bg);
+        overflow: hidden;
+    }
+
+    /* Aesthetic vertical line */
+    .mobile-nav-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        background: rgba(128, 0, 32, 0.1);
+        /* Subtle theme color line */
+        transform: translateX(-50%);
+        z-index: 0;
+    }
+
+    .m-nav-item {
+        position: relative;
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3rem, 10vw, 5rem);
+        line-height: 1;
+        font-weight: 400;
+        font-style: italic;
+        /* Always italic for elegance */
+        text-transform: lowercase;
+        /* creative choice */
+        color: var(--text);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1;
+        opacity: 0;
+        /* Resting state for JS entrance */
+        transform: translateY(30px);
+        letter-spacing: -0.04em;
+        /* Tight editorial spacing */
+        mix-blend-mode: multiply;
+        /* Blends nicely with background */
+    }
+
+    /* The Number (floating separately) */
+    .nav-num {
+        position: absolute;
+        left: -30px;
+        top: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 300;
+        color: var(--accent);
+        opacity: 0;
+        transform: translateX(10px);
+        transition: all 0.4s ease;
+    }
+
+    /* Hover State: Scale & Blur peers */
+    .mobile-nav-links:hover .m-nav-item {
+        opacity: 0.3 !important;
+        transform: scale(0.95);
+    }
+
+    /* Active Item: Clear and Focused */
+    .mobile-nav-links .m-nav-item:hover {
+        opacity: 1 !important;
+        transform: scale(1.25);
+        /* Significant scale up */
+        letter-spacing: 0em;
+        /* Opens up */
+        color: var(--accent);
+    }
+
+    .mobile-nav-links .m-nav-item:hover .nav-num {
+        opacity: 1;
+        transform: translateX(-10px);
+    }
+
+    /* Reset pseudo elements form previous versions */
+    .m-nav-item::before,
+    .m-nav-item::after {
+        display: none;
+    }
+
+    /**
+     * Hamburger animation - X pattern on menu open
+     */
+    .menu-toggle.active .bar-1 {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-toggle.active .bar-2 {
+        opacity: 0;
+    }
+
+    .menu-toggle.active .bar-3 {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
+
+/* ============================================================================
+   HERO SECTION STYLING
+   ============================================================================
+   Full-height hero section with two-column grid layout
+   - Left: Text content (speech bubble, name, description, buttons)
+   - Right: Profile image with 3D perspective
+   ============================================================================ */
+
+/* ============================================================================
+   HERO SECTION STYLING (MODERN B&W)
+   ============================================================================
+   Minimalist, high-contrast, bold typography
+   ============================================================================ */
+
+#hero-minimal {
+    position: relative;
+    width: 100%;
+    height: 110vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg);
+    /* Pure white */
+    color: var(--text);
+    /* Pure black */
+    overflow: hidden;
+    padding: 20px;
+    /* Removed negative margin to show work section */
+}
+
+/* Modern B&W Hero: Graphic Elements & Interactions */
+
+/* Animated Grain Overlay */
+.hero-grain {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 3;
+    animation: grainMove 8s steps(10) infinite;
+}
+
+@keyframes grainMove {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-5%, -10%);
+    }
+
+    20% {
+        transform: translate(-15%, 5%);
+    }
+
+    30% {
+        transform: translate(7%, -25%);
+    }
+
+    40% {
+        transform: translate(-5%, 25%);
+    }
+
+    50% {
+        transform: translate(-15%, 10%);
+    }
+
+    60% {
+        transform: translate(15%, 0%);
+    }
+
+    70% {
+        transform: translate(0%, 15%);
+    }
+
+    80% {
+        transform: translate(3%, 35%);
+    }
+
+    90% {
+        transform: translate(-10%, 10%);
+    }
+}
+
+/* Background Graphic (Spinning Element) */
+
+/* Background Graphic (Spinning Element) */
+.hero-bg-graphic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 60vw;
+    opacity: 0.03;
+    /* Very faint */
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-bg-graphic svg {
+    width: 100%;
+    height: 100%;
+    animation: slowSpin 60s linear infinite;
+    stroke: var(--text);
+}
+
+@keyframes slowSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Updated Text Wrapper with context */
+.hero-content-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 120px 0 60px;
+    position: relative;
+    z-index: 4;
+    /* Above grain */
+}
+
+/* Top Labels */
+.hero-top-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 20px;
+}
+
+/* Main Headline */
+/* Main Headline */
+.hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 15vw, 12rem);
+    line-height: 0.85;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    padding: 40px 0;
+}
+
+.line-wrapper {
+    overflow: hidden;
+    perspective: 1000px;
+    /* Essential for 3D rotation */
+}
+
+.hero-line {
+    display: block;
+    transform-origin: 50% 100%;
+    /* Pivot from bottom */
+    transform: translateY(110%) rotateX(-20deg);
+    /* Initial state */
+    opacity: 0;
+    animation: rotateUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-line.indent {
+    text-align: right;
+    margin-left: 10vw;
+    animation-delay: 0.3s;
+    /* Slightly longer delay for impact */
+}
+
+/* Animations */
+@keyframes rotateUp {
+    from {
+        opacity: 0;
+        transform: translateY(110%) rotateX(-20deg);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+        filter: blur(0);
+    }
+}
+
+/* Bottom Row */
+.hero-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+}
+
+.scroll-down-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.scroll-arrow {
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+.hero-bio {
+    text-align: right;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    max-width: 400px;
+    font-weight: 400;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    #hero-minimal {
+        padding: 20px 0;
+        /* Remove horizontal padding */
+    }
+
+    .hero-content-wrapper {
+        padding: 100px 15px 40px;
+        /* Minimal side padding for content */
+    }
+
+    .hero-line.indent {
+        margin-left: 0;
+        text-align: left;
+    }
+
+    .hero-bottom-row {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .scroll-down-wrapper {
+        display: none;
+    }
+
+    .hero-bio {
+        text-align: left;
+    }
+}
+
+
+/* ============================================================================
+   WORKS REDESIGN (SLIDER)
+   ============================================================================ */
+
+.works-redesign {
+    padding: 100px 5% 50px;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.works-header {
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.works-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400;
+    color: var(--text);
+    margin: 0;
+}
+
+.works-header-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+}
+
+.works-desc {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    max-width: 500px;
+    color: var(--text);
+    opacity: 0.8;
+}
+
+.works-nav {
+    display: flex;
+    gap: 40px;
+}
+
+.works-nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text);
+    padding: 10px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.works-nav-btn:hover {
+    opacity: 0.6;
+}
+
+.works-nav-btn.prev-btn:hover {
+    transform: translateX(-10px);
+}
+
+.works-nav-btn.next-btn:hover {
+    transform: translateX(10px);
+}
+
+/* Slider Track */
+.projects-slider-container {
+    width: 100%;
+    overflow: hidden;
+    /* We'll use JS to move the track */
+    padding: 20px 0;
+}
+
+.projects-slider-track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-slide-item {
+    flex: 0 0 clamp(300px, 30vw, 450px);
+    height: clamp(450px, 60vh, 650px);
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.project-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.project-slide-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.project-slide-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Card Overlay Content */
+.project-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.project-slide-item:hover .project-card-overlay,
+.project-slide-item.active .project-card-overlay {
+    opacity: 1;
+}
+
+.project-card-info {
+    transform: translateY(20px);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-slide-item:hover .project-card-info {
+    transform: translateY(0);
+}
+
+.project-card-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.project-card-desc {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+.project-card-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.p-tag {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card-arrow {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+}
+
+.project-card-arrow svg {
+    width: 24px;
+    height: 24px;
+}
+
+.project-slide-item:hover .project-card-arrow {
+    background: white;
+    color: black;
+    transform: rotate(45deg);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .works-header-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .project-slide-item {
+        flex: 0 0 85vw;
+        height: 500px;
+    }
+
+    .project-card-title {
+        font-size: 1.8rem;
+    }
+
+    .works-nav {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* ============================================================================
+   SERVICES LIST SECTION (MODERN MINIMAL)
+   ============================================================================ */
+
+.services-list-section {
+    margin-top: 151px;
+    padding-bottom: 20px;
+}
+
+.services-track {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(128, 0, 32, 0.1);
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    padding: 31px 40px;
+    border-bottom: 1px solid rgba(128, 0, 32, 0.1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-item:hover {
+    background: rgba(128, 0, 32, 0.05);
+    /* Soft gray/burgundy highlight */
+    padding-left: 60px;
+}
+
+.service-num {
+    font-size: 1.1rem;
+    font-weight: 500;
+    min-width: 61px;
+    color: var(--text);
+    opacity: 0.8;
+}
+
+.service-name {
+    font-size: clamp(1.8rem, 4vw, 3.1rem);
+    font-weight: 400;
+    flex: 1;
+    color: var(--text);
+    transition: transform 0.4s ease;
+}
+
+.service-item:hover .service-name {
+    transform: translateX(10px);
+}
+
+.service-arrow {
+    width: 41px;
+    height: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: transform 0.4s ease;
+}
+
+.service-item:hover .service-arrow {
+    transform: translateX(10px) rotate(-45deg);
+}
+
+.service-arrow svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Services Footer CTA */
+.services-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 61px;
+    padding-bottom: 40px;
+}
+
+.all-services-btn {
+    padding: 18px 45px;
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.all-services-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(128, 0, 32, 0.2);
+    padding-right: 60px;
+}
+
+.all-services-btn::after {
+    content: '→';
+    position: absolute;
+    right: 25px;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.all-services-btn:hover::after {
+    opacity: 1;
+    right: 30px;
+}
+
+/* Mobile Adjustments for Services List */
+@media (max-width: 768px) {
+    .service-item {
+        padding: 25px 20px;
+    }
+
+    .service-item:hover {
+        padding-left: 30px;
+    }
+
+    .service-num {
+        min-width: 40px;
+        font-size: 0.9rem;
+    }
+
+    .service-name {
+        font-size: 1.5rem;
+    }
+}
+
+/* End of Works Redesign */
+
+/* ============================================================================
+   VIEW MANAGEMENT & PAGE LAYOUT
+   ============================================================================
+   Manages visibility of different page sections
+   - View sections: Hidden by default, shown when active
+   - Page content: Standard padding and spacing
+   - Section titles: Large, elegant typography
+   ============================================================================ */
+
+
+/* ============================================================================
+   VIEW MANAGEMENT & PAGE LAYOUT
+   ============================================================================
+   Manages visibility of different page sections
+   - View sections: Hidden by default, shown when active
+   - Page content: Standard padding and spacing
+   - Section titles: Large, elegant typography
+   ============================================================================ */
+
+/**
+ * Individual view sections (home, photos, about, contact)
+ * Hidden by default, full-height minimum
+ */
+.view-section {
+    display: none;
+    min-height: 100vh;
+    padding-bottom: 100px;
+}
+
+#view-about,
+#view-contact,
+#view-home,
+#view-photos {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 100px;
+}
+
+/**
+ * Active view is visible
+ */
+.view-section.active {
+    display: block;
+}
+
+/**
+ * Standard page content padding
+ * Accounts for fixed navbar height
+ */
+.page-content {
+    padding-top: 160px;
+}
+
+/**
+ * Section titles
+ * Large, elegant serif font
+ * Consistent bottom spacing
+ */
+.section-title {
+    font-family: 'Playfair Display';
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+}
+
+/* ============================================================================
+   PHOTO GALLERY STYLING
+   ============================================================================
+   CSS column-based masonry layout for responsive gallery
+   Images arranged in vertical columns that adjust to screen size
+   ============================================================================ */
+
+
+/**
+ * Photo gallery section
+ * White background for contrast
+ */
+#view-photos {
+    background: var(--bg);
+}
+
+/* ============================================================================
+   CREATIVE GALLERY HEADER
+   ============================================================================ */
+.gallery-header {
+    margin-bottom: 80px;
+    padding: 0 5%;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.gallery-subtitle {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.gallery-title {
+    font-family: 'Inter', sans-serif;
+    /* Clean san-serif contrasting with the grid */
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 0.9;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -3px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Hero Title Animation Overrides */
+/* Cinematic Tracking Reveal for Hero Title */
+.hero-headline .title-word,
+.hero-headline .title-divider {
+    opacity: 0;
+    display: inline-block;
+    white-space: nowrap;
+    animation: heroTrackingReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    letter-spacing: -1em;
+    /* Start very tight/overlapping */
+    filter: blur(20px);
+    transform: scale(0.9);
+}
+
+.hero-headline .title-word:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.hero-headline .title-divider {
+    animation-delay: 0.3s;
+}
+
+.hero-headline .title-word:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+@keyframes heroTrackingReveal {
+    0% {
+        opacity: 0;
+        letter-spacing: -0.5em;
+        filter: blur(20px);
+        transform: scale(0.9);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        letter-spacing: normal;
+        filter: blur(0);
+        transform: scale(1);
+    }
+}
+
+.title-word.outline {
+    -webkit-text-stroke: 1px var(--text);
+    color: transparent;
+}
+
+.title-divider {
+    font-size: 0.5em;
+    color: var(--b-yellow);
+    opacity: 0.5;
+    letter-spacing: -5px;
+    margin: 0 10px;
+}
+
+/* Rolling Text Animation */
+.rolling-text-container {
+    margin-top: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+}
+
+.rolling-text span {
+    display: inline-block;
+    padding-left: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--secondary);
+    letter-spacing: 1px;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/**
+ * Masonry grid layout using CSS columns
+ * 4 columns on desktop, responsive to screen size
+ * Gaps between images for spacing
+ */
+/* Modern Masonry Gallery Styling */
+
+.photo-gallery-modern {
+    column-count: 3;
+    column-gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Gallery Items */
+.gallery-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    background: #f0f0f0;
+    margin-bottom: 24px;
+    /* Space between vertical items */
+    break-inside: avoid;
+    /* Prevent items from splitting across columns */
+    transform: translateZ(0);
+    /* Fix for webkit rendering */
+}
+
+/* Ignore grid-specific span classes for Masonry flow */
+.gallery-item.wide,
+.gallery-item.tall {
+    grid-column: auto;
+    grid-row: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .photo-gallery-modern {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .photo-gallery-modern {
+        column-count: 1;
+    }
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    /* Allow natural height */
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+    /* Subtle zoom */
+}
+
+/* Caption Overlay */
+.photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .photo-overlay {
+    opacity: 1;
+}
+
+/* Caption Text */
+.photo-caption {
+    transform: translateY(20px);
+    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.gallery-item:hover .photo-caption {
+    transform: translateY(0);
+}
+
+.photo-mood {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.gallery-item h3 {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/**
+ * Placeholder classes for different aspect ratios
+ * Can be used to size items differently if needed in the future
+ */
+
+
+/* ============================================================================
+   PROJECT PAGE STYLING
+   ============================================================================
+   Detailed project showcase page layout
+   - Hero section with project info and image
+   - Body section with description, features, gallery
+   - Responsive grid adjustments
+   ============================================================================ */
+
+/**
+ * Project page container
+ * Top padding to account for navbar
+ */
+.project-page {
+    padding-top: 120px;
+    background: var(--bg);
+}
+
+/**
+ * Project container with max-width
+ * Centered with padding
+ */
+.project-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px;
+}
+
+/**
+ * Project hero grid
+ * Two columns: text on left, image on right
+ * Aligned to start for top alignment
+ */
+.project-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 520px;
+    gap: 40px;
+    align-items: start;
+}
+
+/**
+ * Project title
+ * Large, elegant serif typography
+ */
+.hero-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    margin-bottom: 8px;
+}
+
+/**
+ * Muted text color
+ */
+.muted {
+    color: var(--secondary);
+    margin-bottom: 18px
+}
+
+/**
+ * Project summary paragraph
+ */
+.project-summary p {
+    font-size: 1.05rem;
+    color: var(--secondary);
+    line-height: 1.6
+}
+
+/**
+ * Meta information grid (Role, Timeline, Team)
+ */
+.project-meta-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 18px
+}
+
+/**
+ * Meta column paragraph styling
+ */
+.project-meta-row .meta-col p {
+    margin-top: 6px;
+    color: var(--secondary)
+}
+
+/**
+ * Technology tags
+ */
+.project-tags {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap
+}
+
+/**
+ * Individual tag styling
+ */
+.tag {
+    background: rgba(128, 0, 32, 0.08);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem
+}
+
+/**
+ * Project CTA buttons
+ */
+.project-ctas {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px
+}
+
+/**
+ * Project image wrapper
+ */
+.project-image-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(128, 0, 32, 0.08);
+}
+
+/**
+ * Project main image
+ */
+.project-image {
+    width: 100%;
+    height: auto;
+    display: block
+}
+
+/**
+ * Project body content
+ */
+.project-body {
+    margin-top: 40px
+}
+
+/**
+ * Body section headings
+ */
+.project-body h2 {
+    font-family: 'Playfair Display';
+    font-size: 2rem;
+    margin-bottom: 14px
+}
+
+/**
+ * Project description text
+ */
+.project-desc {
+    color: var(--secondary);
+    line-height: 1.7;
+    margin-bottom: 20px
+}
+
+/**
+ * Features list
+ * Two-column grid layout
+ */
+.project-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 30px;
+    margin-bottom: 26px
+}
+
+/**
+ * Project gallery grid
+ * Three columns
+ */
+.project-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px
+}
+
+/**
+ * Gallery thumbnail image
+ * Hover zoom effect
+ */
+.gallery-thumb {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)
+}
+
+/**
+ * Gallery thumbnail hover
+ */
+.gallery-thumb:hover {
+    transform: scale(1.05)
+}
+
+/**
+ * Responsive project page
+ */
+@media (max-width: 900px) {
+    .project-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-right {
+        order: -1
+    }
+
+    .project-gallery {
+        grid-template-columns: repeat(2, 1fr)
+    }
+}
+
+/**
+ * Photo item aspect ratio variants
+ */
+.photo-item.tall {
+    grid-column: span 1;
+    aspect-ratio: 2 / 3;
+}
+
+.photo-item.portrait {
+    grid-column: span 1;
+    aspect-ratio: 3 / 4;
+}
+
+
+/* ============================================================================
+   ABOUT SECTION STYLING
+   ============================================================================
+   Personal introduction with ID badge and info grid
+   - Left: Animated ID badge
+   - Right: Text content and toolkit info
+   ============================================================================ */
+
+/* Keyframe animations for badge entrance */
+@keyframes badgeSlideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Floating animation - subtle up and down movement */
+@keyframes badgeFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotateZ(0deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotateZ(1deg);
+    }
+}
+
+/* Glow pulse animation */
+@keyframes badgeGlowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 20px 40px rgba(128, 0, 32, 0.1), 0 0 0 0 rgba(128, 0, 32, 0);
+    }
+
+    50% {
+        box-shadow: 0 20px 40px rgba(128, 0, 32, 0.1), 0 0 0 15px rgba(128, 0, 32, 0);
+    }
+}
+
+/* Speech bubble entrance animation */
+@keyframes bubblePop {
+    0% {
+        opacity: 0;
+        transform: rotate(12deg) scale(0) translateX(20px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: rotate(12deg) scale(1.1) translateX(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(12deg) scale(1) translateX(0);
+    }
+}
+
+/* Photo entrance with slight zoom */
+@keyframes photoZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+/**
+ * About hero layout
+ * Two columns: badge on left, text on right
+ */
+.about-hero {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 120px;
+}
+
+/**
+ * Badge container wrapper
+ * Centering and positioning for the badge
+ */
+.about-badge-container {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    will-change: transform, opacity;
+}
+
+/**
+ * Badge container for 3D effects
+ * Perspective and transform-style for 3D rotation
+ */
+.badge-container {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform, opacity;
+}
+
+/**
+ * ID badge card
+ * White background, rounded corners, shadow
+ * Animations handled by GSAP JavaScript for enhanced control
+ */
+.id-badge {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(128, 0, 32, 0.1);
+    border: 1px solid var(--b-yellow);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: box-shadow 0.5s ease;
+}
+
+/**
+ * ID badge hover shadow enhancement
+ */
+.about-badge-container:hover .id-badge {
+    box-shadow: 0 30px 60px rgba(128, 0, 32, 0.15);
+}
+
+.badge-container:hover .id-badge {
+    box-shadow: 0 45px 80px rgba(128, 0, 32, 0.15);
+}
+
+/**
+ * Badge photo wrapper
+ * Square aspect ratio with border
+ */
+.badge-photo-wrap {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 6px solid var(--blue);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+/**
+ * Badge photo image
+ */
+.badge-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/**
+ * Name strip on badge
+ * Orange background with white text
+ */
+.badge-name-strip {
+    background: var(--accent);
+    color: white;
+    padding: 8px;
+    font-weight: 700;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+/**
+ * Badge speech bubble
+ * Positioned absolutely, rotated, with shadow
+ * Animations handled by GSAP
+ */
+.badge-speech-bubble {
+    position: absolute;
+    right: -25px;
+    top: 50px;
+    background: var(--blue);
+    color: var(--bg);
+    padding: 8px 14px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 13px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transform: rotate(12deg);
+    white-space: nowrap;
+    will-change: transform;
+    backface-visibility: hidden;
+    transition: box-shadow 3s ease-in-out;
+}
+
+/**
+ * Badge speech bubble hover
+ */
+.badge-speech-bubble:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Badge details grid (birthday, location, etc.)
+ */
+.badge-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    text-align: left;
+    font-size: 11px;
+}
+
+/**
+ * Badge detail label
+ */
+.badge-details span {
+    display: block;
+    color: var(--secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+/**
+ * Badge detail value
+ */
+.badge-details p {
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* Clip swing animation - subtle motion */
+@keyframes clipSwing {
+
+    0%,
+    100% {
+        transform: translateX(-50%) rotateZ(0deg);
+    }
+
+    50% {
+        transform: translateX(-50%) rotateZ(2deg);
+    }
+}
+
+/**
+ * Pseudo-element for badge - transparent hook
+ * Subtle transparent design with minimal border
+ */
+.id-badge::before {
+    content: '';
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50% 50% 8px 8px;
+    border: 1.5px solid rgba(128, 0, 32, 0.3);
+    box-shadow:
+        inset 0 1px 3px rgba(255, 255, 255, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    animation: clipSwing 3.5s ease-in-out infinite;
+    will-change: transform;
+    backdrop-filter: blur(2px);
+}
+
+/**
+ * Inner hook detail - transparent hanging loop
+ */
+.id-badge::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50% 50% 3px 3px;
+    border: 1.5px solid rgba(128, 0, 32, 0.25);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.03);
+    z-index: 11;
+    animation: clipSwing 3.5s ease-in-out infinite;
+    backdrop-filter: blur(1px);
+}
+
+
+
+/**
+ * Main heading in about section
+ */
+.hello-title {
+    font-family: 'Fredoka';
+    font-size: 5rem;
+    margin-bottom: 30px;
+}
+
+/**
+ * Modern 3-column info grid
+ * Card-based layout for experiences, education, toolkit
+ */
+.info-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 100px;
+}
+
+/**
+ * Info card container with entrance animation
+ * White background with shadow and border
+ */
+.info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    border: 1px solid var(--b-yellow);
+    box-shadow: 0 10px 40px rgba(128, 0, 32, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    animation: badgeSlideInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.info-card:nth-child(1) {
+    animation-delay: 1s;
+}
+
+.info-card:nth-child(2) {
+    animation-delay: 1.15s;
+}
+
+.info-card:nth-child(3) {
+    animation-delay: 1.3s;
+}
+
+/**
+ * Info card hover effect
+ */
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(128, 0, 32, 0.15);
+    border-color: var(--accent);
+}
+
+/**
+ * Card icon wrapper
+ * Background circle with icon inside
+ */
+.card-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, rgba(128, 0, 32, 0.15), rgba(128, 0, 32, 0.15));
+    border-radius: 12px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover .card-icon-wrapper {
+    background: linear-gradient(135deg, rgba(128, 0, 32, 0.25), rgba(128, 0, 32, 0.25));
+    transform: scale(1.1);
+}
+
+/**
+ * Card icon emoji
+ */
+.card-icon {
+    font-size: 2.5rem;
+    display: block;
+}
+
+/**
+ * Card title
+ */
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+/**
+ * Card content wrapper
+ */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/**
+ * Separator line in card
+ */
+.separator {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--b-yellow), transparent);
+    margin: 20px 0;
+}
+
+/**
+ * Individual info item in card
+ */
+.info-item {
+    margin-bottom: 0;
+}
+
+/**
+ * Info item title
+ */
+.info-item h4 {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+/**
+ * Role location text
+ */
+.role-location {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.role-location span {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/**
+ * Date text
+ */
+.date {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/**
+ * Toolkit item in card
+ */
+.toolkit-item {
+    margin-bottom: 0;
+}
+
+/**
+ * Toolkit item label
+ */
+.toolkit-item h5 {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/**
+ * Toolkit item description
+ */
+.toolkit-item p {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/**
+ * Legacy info grid (for backward compatibility)
+ */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 80px;
+}
+
+.info-col h3 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-item p {
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+.toolkit-list h5 {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+
+/* ============================================================================
+   CONTACT FORM & FOOTER STYLING
+   ============================================================================
+   Contact section with form and info
+   Footer with social links and copyright
+   ============================================================================ */
+
+/**
+ * Contact container
+ * Two columns: contact info on left, form on right
+ */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+/**
+ * Contact form
+ * Vertical flex layout with consistent spacing
+ */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/**
+ * Form inputs and textarea
+ * Consistent styling, sage green border
+ */
+input,
+textarea {
+    padding: 15px;
+    border: 1px solid var(--b-yellow);
+    border-radius: 4px;
+    font-family: 'Inter';
+    background: white;
+}
+
+/**
+ * Form submit button
+ * Orange background, white text
+ */
+button {
+    padding: 15px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/**
+ * Site footer
+ * Top border accent, light background
+ */
+.site-footer {
+    padding: 30px 10% 20px;
+    border-top: 2px solid var(--accent);
+    margin-top: 50px;
+    background: var(--bg);
+}
+
+/**
+ * Footer top section
+ * Flex layout with space between CTA and actions
+ */
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/**
+ * Footer CTA text
+ */
+.footer-cta p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/**
+ * Footer CTA heading
+ */
+.footer-cta h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/**
+ * Footer action items container
+ */
+.footer-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/**
+ * Social media icons container
+ */
+.footer-socials {
+    display: flex;
+    gap: 10px;
+}
+
+/**
+ * Individual social icon button
+ * Circular border with hover fill
+ */
+.social-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+/**
+ * Social icon SVG sizing
+ */
+.social-icon svg {
+    width: 17px;
+    height: 17px;
+}
+
+/**
+ * Social icon hover state
+ * Fills background with accent color
+ */
+.social-icon:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/**
+ * Back to top button
+ * Subtle style with hover fill
+ */
+.back-to-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    color: var(--text);
+    border: 1px solid var(--accent);
+    padding: 6px 16px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/**
+ * Back to top hover state
+ */
+.back-to-top:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/**
+ * Footer bottom section
+ * Centered copyright and made-by info
+ */
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+/**
+ * Made-by attribution text
+ */
+.made-by {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/**
+ * Hand-drawn icon styling
+ */
+.hand-drawn-icon {
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================================================
+   MESSAGE MODAL / POP-UP STYLING
+   ============================================================================
+   Aesthetic success and error modals for form submission feedback
+   Features: smooth entrance animation, backdrop blur, icons
+   ============================================================================ */
+
+/* Modal keyframe animations */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes backdropsSlideIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    to {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
+
+@keyframes checkmarkDraw {
+    0% {
+        stroke-dasharray: 50;
+        stroke-dashoffset: 50;
+    }
+
+    100% {
+        stroke-dasharray: 50;
+        stroke-dashoffset: 0;
+    }
+}
+
+/**
+ * Message modal container
+ */
+.message-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/**
+ * Modal visible state
+ */
+.message-modal.active {
+    pointer-events: all;
+    opacity: 1;
+    visibility: visible;
+}
+
+/**
+ * Modal backdrop with blur effect
+ */
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(128, 0, 32, 0.3);
+    backdrop-filter: blur(5px);
+    animation: backdropsSlideIn 0.4s ease-out;
+    cursor: pointer;
+}
+
+/**
+ * Modal content card
+ */
+.message-modal-content {
+    position: relative;
+    z-index: 2;
+    background: white;
+    border-radius: 20px;
+    padding: 50px 40px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(128, 0, 32, 0.2);
+    border: 1px solid rgba(128, 0, 32, 0.3);
+    animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/**
+ * Modal icon wrapper
+ */
+.modal-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(128, 0, 32, 0.15), rgba(128, 0, 32, 0.15));
+    border-radius: 50%;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
+}
+
+/**
+ * Error icon wrapper
+ */
+.modal-icon-wrapper.error {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.15), rgba(255, 152, 0, 0.15));
+}
+
+/**
+ * Modal checkmark icon
+ */
+.modal-checkmark {
+    width: 45px;
+    height: 45px;
+    color: var(--accent);
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: checkmarkDraw 0.6s ease-out 0.3s forwards;
+}
+
+/**
+ * Modal icon (general)
+ */
+.modal-icon {
+    width: 45px;
+    height: 45px;
+    color: #FF6B6B;
+}
+
+/**
+ * Modal title
+ */
+.modal-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s backwards;
+}
+
+/**
+ * Error modal title
+ */
+.modal-title.error {
+    color: #FF6B6B;
+}
+
+/**
+ * Modal text
+ */
+.modal-text {
+    font-size: 1rem;
+    color: var(--secondary);
+    line-height: 1.6;
+    margin-bottom: 30px;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+}
+
+/**
+ * Modal close button
+ */
+.modal-close-btn {
+    padding: 14px 28px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s backwards;
+}
+
+.modal-close-btn:hover {
+    background: var(--text);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(128, 0, 32, 0.25);
+}
+
+/**
+ * Error modal button
+ */
+.modal-close-btn.error {
+    background: #FF6B6B;
+}
+
+.modal-close-btn.error:hover {
+    background: #FF5252;
+    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.25);
+}
+
+
+/* ============================================================================
+   RESPONSIVE DESIGN - DESKTOP TO TABLET
+   ============================================================================
+   Breakpoint: 1024px
+   Adjusts layout for medium-sized screens
+   - Hero layout changes to single column
+   - Grid adjustments for projects and gallery
+   - Navigation stays visible
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+
+    /**
+     * Hero section becomes single column centered
+     */
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        height: auto;
+        padding-top: 140px;
+        gap: 40px;
+    }
+
+    /**
+     * Smaller profile circle on tablet
+     */
+    .profile-circle {
+        width: 300px;
+        height: 300px;
+    }
+
+    /**
+     * Center name rows
+     */
+    .name-row {
+        justify-content: center;
+    }
+
+    /**
+     * About section single column
+     */
+    .about-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    /**
+     * Smaller hello title
+     */
+    .hello-title {
+        font-size: 3.5rem;
+    }
+
+    /**
+     * About info grid single column
+     */
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        margin-top: 40px;
+    }
+
+    /**
+     * Center info column headings
+     */
+    .info-col h3 {
+        justify-content: center;
+    }
+
+    /**
+     * Work grid stays 2 columns
+     */
+    .work-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /**
+     * Contact form single column
+     */
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    /**
+     * Adjust navbar padding
+     */
+    nav {
+        padding: 20px 30px;
+    }
+
+    /**
+     * Center footer CTA on tablet
+     */
+    .footer-top {
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+    }
+
+    /**
+     * Center hero button group
+     */
+    .hero-btns {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    /**
+     * Remove left margin from speech bubble and first name row
+     */
+    #speechBubble,
+    .name-row:first-child {
+        margin-left: 0 !important;
+    }
+
+    /**
+     * Hide desktop only elements
+     */
+    .desktop-only {
+        display: none !important;
+    }
+
+    /**
+     * Adjust photo gallery columns
+     */
+    .photo-gallery-grid {
+        column-count: 3;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - TABLET TO MOBILE
+   ============================================================================
+   Breakpoint: 900px
+   Further adjustments for smaller tablets
+   - Photo gallery reduces to 2 columns
+   ============================================================================ */
+
+@media (max-width: 900px) {
+
+    /**
+     * Photo gallery reduces to 2 columns
+     */
+    .photo-gallery-grid {
+        column-count: 2;
+    }
+
+    /**
+     * About hero responsive for tablets
+     */
+    .about-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    /**
+     * Info grid goes to 2 columns on tablets
+     */
+    .info-grid-modern {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - MOBILE PHONES
+   ============================================================================
+   Breakpoint: 768px
+   Major layout shifts for mobile devices
+   - Single column layouts
+   - Smaller images and fonts
+   - Touch-friendly spacing
+   ============================================================================ */
+
+@media (max-width: 768px) {
+
+    /**
+     * Hero becomes full mobile stack
+     */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 100px;
+    }
+
+    /**
+     * Hero content centered
+     */
+    .hero-content {
+        align-items: center;
+        width: 100%;
+    }
+
+    /**
+     * Responsive name sizing
+     */
+    .playful-name {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+        align-items: center;
+    }
+
+    /**
+     * Full-width button group
+     */
+    .hero-btns {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    /**
+     * Mobile profile circle size
+     */
+    .profile-circle {
+        width: 280px;
+        height: 280px;
+        border-width: 8px;
+    }
+
+    /**
+     * Work grid becomes single column on phones
+     */
+    .work-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    /**
+     * About hero responsive
+     */
+    .about-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 80px;
+    }
+
+    /**
+     * Info grid goes to 1 column on mobile
+     */
+    .info-grid-modern {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 60px;
+    }
+
+    /**
+     * Info card responsive
+     */
+    .info-card {
+        padding: 30px 24px;
+    }
+
+    /**
+     * Hello title responsive
+     */
+    .hello-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - SMALL PHONES
+   ============================================================================
+   Breakpoint: 480px
+   Extra small screen optimizations
+   - Single column for all layouts
+   - Smaller typography
+   - Compact spacing
+   ============================================================================ */
+
+@media (max-width: 480px) {
+
+    /**
+     * Very small heading on extra small phones
+     */
+    .hello-title {
+        font-size: 2.5rem;
+    }
+
+    /**
+     * Smaller badge container
+     */
+    .badge-container {
+        max-width: 280px;
+    }
+
+    /**
+     * Smaller section titles
+     */
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    /**
+     * Gallery single column on tiny screens
+     */
+    .photo-gallery-grid {
+        column-count: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .hello-title {
+        font-size: 2.5rem;
+    }
+
+    .badge-container {
+        max-width: 280px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .photo-gallery-grid {
+        column-count: 1;
+    }
+}
+
+
+
+
+
+
+/* Prevent layout shifts when scaling */
+.char,
+.nav-item,
+.btn,
+.project-card {
+    will-change: transform;
+    display: inline-block;
+    /* Essential for transforms to work correctly */
+}
+
+
+
+/* Ensure the profile image stays grounded while text moves */
+#heroImage {
+    pointer-events: none;
+    /* Let the parallax script handle this, not the magnetic one */
+}
+
+/* Media query for mobile devices One one project shows in phone version */
+@media (max-width: 768px) {
+    .work-grid {
+        /* Changes from 2 columns to 1 column */
+        grid-template-columns: 1fr !important;
+
+        /* Reduce the gap slightly so it doesn't look too huge on small screens */
+        gap: 40px;
+
+        margin-bottom: 40px;
+    }
+}
+
+
+
+
+/* style.css for main container scrooling animation */
+
+.work-section-container {
+    /* ... existing styles ... */
+    will-change: transform, box-shadow;
+    transition: box-shadow 0.5s ease;
+}
+
+/* Base state for individual work sections */
+.work-grid {
+    opacity: 0;
+    transform: scale(0.9) translateY(40px);
+    will-change: transform, opacity;
+}
+
+
+
+
+
+
+/* style.css */
+
+.work-section-container {
+    position: relative;
+    z-index: 20;
+    background: var(--bg);
+    /* Change from -5vh to -20vh to close the gap */
+    margin-top: -10vh;
+    padding: 80px 10%;
+    box-shadow: 0 -40px 100px rgba(128, 0, 32, 0.05);
+    border-radius: 40px 40px 0 0;
+}
+
+
+
+/* style.css */
+.appointment-btn {
+    display: inline-block;
+    padding: 14px 22px;
+    background: var(--text);
+    /* Deep Burgundy */
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.secondary-btn {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid var(--text);
+}
+
+.appointment-btn:hover {
+    background: var(--accent);
+    /* Changes to Vibrant Orange on hover */
+    color: white;
+}
+
+/* ============================================================================
+   AESTHETIC HERO SECTION RELOADED
+   ============================================================================ */
+#hero-aesthetic {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-grain {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 1;
+    animation: grainMove 8s steps(10) infinite;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2vw 4vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Top Bar */
+.hero-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 120px;
+    /* Space for navbar */
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+    color: var(--text);
+}
+
+.hero-meta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-meta::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--text);
+    border-radius: 50%;
+}
+
+/* Center Content */
+.hero-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: -5vh;
+    /* Visual centering adjustment */
+}
+
+.aesthetic-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(4rem, 16vw, 15rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.line-wrap {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.2em;
+    /* Allow space for descenders */
+    margin-bottom: -0.2em;
+    /* Pull back layout spacing */
+}
+
+
+
+
+
+/* -------------------------------------------------------------
+   ETHEREAL HORIZON ANIMATION (ARTISTIC)
+   ------------------------------------------------------------- */
+.aesthetic-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(4rem, 16vw, 15rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.line-wrap {
+    display: block;
+    overflow: hidden;
+}
+
+.hero-word {
+    display: block;
+    position: relative;
+    opacity: 0;
+    transform: translateY(100%);
+    will-change: transform, clip-path, filter;
+    /* Faster and snappier transition for the exit (return) animation */
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+        letter-spacing 0.4s ease,
+        color 0.3s ease,
+        -webkit-text-stroke 0.3s ease,
+        filter 0.4s ease;
+}
+
+/* 1. Appearance: Geometric Clip Reveal */
+.hero-word:not(.serif) {
+    clip-path: inset(100% 0 0 0);
+    animation: clipReveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.hero-word.serif {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text);
+    clip-path: inset(0 -0.5em 100% 0);
+    /* Extend clip path to right */
+    /* Reveals from bottom up */
+    animation: clipReveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.2s forwards;
+    padding-right: 0.15em;
+    /* Small breathing room */
+}
+
+@keyframes clipReveal {
+    to {
+        clip-path: inset(0 -0.5em 0 0);
+        /* Keep clip path extended */
+        transform: translateY(0);
+    }
+}
+
+/* 2. Hover Interaction: The "Breathe & Swap"
+   Creates a sophisticated kinetic tension between the names
+*/
+.aesthetic-headline:hover .hero-word:not(.serif) {
+    letter-spacing: 0.05em;
+    transform: translateX(-10px) skewX(-5deg);
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--text);
+    filter: drop-shadow(0 5px 15px rgba(128, 0, 32, 0.1));
+}
+
+.aesthetic-headline:hover .hero-word.serif {
+    letter-spacing: -0.05em;
+    transform: translateX(30px) translateY(-5px) skewX(5deg);
+    color: var(--text);
+    -webkit-text-stroke: 0px;
+    font-style: normal;
+    filter: drop-shadow(0 10px 20px rgba(128, 0, 32, 0.2));
+}
+
+/* Entrance Sweep (Light Effect) */
+.hero-word::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg);
+    pointer-events: none;
+    animation: lightSweep 2s ease-in-out forwards;
+}
+
+@keyframes lightSweep {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+
+
+.hero-subtitle {
+    margin-top: 3vh;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 500;
+    opacity: 0;
+    line-height: 1.6;
+    max-width: 400px;
+    color: var(--secondary);
+    animation: fadeInUp 1s ease 1s forwards;
+}
+
+/* Bottom Bar */
+.hero-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.8s forwards;
+    color: var(--text);
+}
+
+.location-tag {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.scroll-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.scroll-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: 600;
+}
+
+.scroll-line {
+    width: 2px;
+    height: 60px;
+    background: rgba(128, 0, 32, 0.2);
+    /* Faded burgundy */
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--text);
+    animation: scrollLineAnim 2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+/* Animations */
+@keyframes aestheticReveal {
+    to {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+@keyframes scrollLineAnim {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .hero-container {
+        padding: 170px 20px 40px;
+    }
+
+    .hero-center {
+        margin-top: 0;
+    }
+
+    .hero-top-bar {
+        display: none;
+    }
+
+    .aesthetic-headline {
+        font-size: 24vw;
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        max-width: 90%;
+    }
+
+    .hero-bottom-bar {
+        font-size: 0.8rem;
+    }
+}
+
+/* Override for Projects section on mobile to fix nav overlap */
+@media (max-width: 768px) {
+    .work-section-container {
+        margin-top: 0 !important;
+        padding-top: 150px !important;
+        /* Force clearance for fixed navbar */
+    }
+
+    /* Projects Section Header */
+    .projects-header {
+        margin-bottom: 15vh;
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .projects-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--accent);
+    }
+
+    .projects-label::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: var(--accent);
+    }
+
+    .projects-title {
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 800;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        margin: 0;
+        color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+        .projects-header {
+            margin-bottom: 80px;
+            padding-top: 0;
+        }
+    }
+
+
+}
+
+/* ============================================================================
+   HERO AGE CIRCLE ANIMATION
+   ============================================================================ */
+.hero-age-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid var(--text);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 30px;
+    position: relative;
+    animation: rotateCircle 10s linear infinite;
+}
+
+@keyframes rotateCircle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
